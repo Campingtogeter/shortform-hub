@@ -2,8 +2,6 @@
 import React, { useState, useMemo } from 'react';
 import {
   Search,
-  Instagram,
-  Youtube,
   Music2,
   ExternalLink,
   Sparkles,
@@ -14,6 +12,22 @@ import {
   ShoppingBag,
   Share2,
 } from 'lucide-react';
+
+// 최신 lucide-react에서 제거된 SNS 브랜드 아이콘 자체 SVG 컴포넌트
+const InstagramIcon = ({ className = 'w-3 h-3' }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <rect width="20" height="20" x="2" y="2" rx="5" ry="5" />
+    <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" />
+    <line x1="17.5" x2="17.51" y1="6.5" y2="6.5" />
+  </svg>
+);
+
+const YoutubeIcon = ({ className = 'w-3 h-3' }) => (
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" className={className}>
+    <path d="M2.5 17a24.12 24.12 0 0 1 0-10 2 2 0 0 1 1.4-1.4 49.56 49.56 0 0 1 16.2 0A2 2 0 0 1 21.5 7a24.12 24.12 0 0 1 0 10 2 2 0 0 1-1.4 1.4 49.55 49.55 0 0 1-16.2 0A2 2 0 0 1 2.5 17" />
+    <path d="m10 15 5-3-5-3z" />
+  </svg>
+);
 
 export default function StoreView({
   products,
@@ -59,7 +73,7 @@ export default function StoreView({
       case 'instagram':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white shadow-sm">
-            <Instagram className="w-3 h-3" /> Reels
+            <InstagramIcon className="w-3 h-3" /> Reels
           </span>
         );
       case 'tiktok':
@@ -71,7 +85,7 @@ export default function StoreView({
       case 'youtube':
         return (
           <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-600 text-white shadow-sm">
-            <Youtube className="w-3 h-3" /> Shorts
+            <YoutubeIcon className="w-3 h-3" /> Shorts
           </span>
         );
       default:
