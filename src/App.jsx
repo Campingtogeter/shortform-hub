@@ -327,7 +327,7 @@ const YoutubeIcon = ({ className = 'w-3 h-3' }) => (
   </svg>
 );
 
-// --- StoreView.jsx ---
+// --- StoreView ---
 function StoreView({
   products,
   lang = 'ko',
@@ -403,7 +403,6 @@ function StoreView({
 
   return (
     <main className="max-w-4xl mx-auto px-4 pt-6">
-      {/* 상단 히어로 안내 */}
       <div className="text-center mb-5">
         <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 text-white text-[11px] font-bold mb-2.5">
           <Sparkles className="w-3.5 h-3.5 text-amber-400" />
@@ -544,7 +543,6 @@ function StoreView({
                 className="bg-white rounded-3xl border border-zinc-200/90 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
               >
                 <div>
-                  {/* 썸네일 영역 */}
                   <div
                     onClick={() => onOpenDirectShop(item)}
                     className="relative aspect-[4/3] bg-zinc-100 overflow-hidden cursor-pointer"
@@ -558,7 +556,6 @@ function StoreView({
                       className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
                     />
 
-                    {/* 좌측 상단: 영상 번호 & 등록 방식 배지 */}
                     <div className="absolute top-3 left-3 flex items-center gap-1.5">
                       <span className="bg-zinc-950/90 backdrop-blur-sm text-white px-2.5 py-1 rounded-xl text-xs font-black shadow">
                         #{post?.video_number || '-'}
@@ -573,12 +570,10 @@ function StoreView({
                       )}
                     </div>
 
-                    {/* 우측 상단: 플랫폼 배지 */}
                     <div className="absolute top-3 right-3">
                       {renderPlatformBadge(post?.platform)}
                     </div>
 
-                    {/* 하단: 강조 배지 */}
                     {displayBadge && (
                       <div className="absolute bottom-2.5 left-3">
                         <span className="inline-flex items-center gap-1 bg-amber-400 text-zinc-950 text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow">
@@ -589,7 +584,6 @@ function StoreView({
                     )}
                   </div>
 
-                  {/* 상품 정보 본문 */}
                   <div className="p-4">
                     {displayVideoTitle && (
                       <p className="text-[11px] font-semibold text-zinc-400 line-clamp-1 mb-1">
@@ -655,7 +649,6 @@ function StoreView({
                   </div>
                 </div>
 
-                {/* 하단 액션 버튼: 독립 판매페이지 진입 & 링크 복사 */}
                 <div className="px-4 pb-4 pt-1 space-y-2">
                   <div className="flex items-center gap-2">
                     <button
@@ -684,7 +677,6 @@ function StoreView({
                       </a>
                     )}
 
-                    {/* 인스타/쇼츠 전용 직행 판매 링크 복사 버튼 */}
                     <button
                       onClick={() => onCopyShopLink(item)}
                       title={
@@ -728,7 +720,7 @@ function StoreView({
   );
 }
 
-// --- DirectShopView.jsx ---
+// --- DirectShopView ---
 function DirectShopView({
   product,
   lang = 'ko',
@@ -1034,7 +1026,6 @@ function DirectShopView({
   return (
     <div className="pb-28">
       <div className="max-w-2xl mx-auto bg-white border-x border-b border-zinc-200 shadow-xs">
-        {/* 상단 네비게이션 & 한/영 언어 스위처 바 */}
         <div className="px-4 py-3 border-b border-zinc-100 flex flex-wrap items-center justify-between gap-2 bg-zinc-50/70">
           <button
             onClick={onBackToStore}
@@ -1687,7 +1678,7 @@ function DirectShopView({
   );
 }
 
-// --- AdminDashboard.jsx ---
+// --- AdminDashboard ---
 function AdminDashboard({
   products,
   orders,
@@ -1726,7 +1717,6 @@ function AdminDashboard({
 
   return (
     <main className="max-w-5xl mx-auto px-4 pt-6 space-y-6">
-      {/* 상단 관리자 헤더 배너 */}
       <div className="bg-zinc-900 text-white rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
         <div>
           <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold mb-2">
@@ -1754,7 +1744,6 @@ function AdminDashboard({
         </div>
       </div>
 
-      {/* 상단 핵심 요약 지표 4종 */}
       <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
         <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
           <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-500">
@@ -1789,7 +1778,6 @@ function AdminDashboard({
         </div>
       </div>
 
-      {/* 관리자 내부 서브 탭 전환 */}
       <div className="flex flex-wrap gap-2 border-b border-zinc-200 pb-3">
         {[
           { id: 'orders', label: `📦 국내·해외 주문 내역 (${orders.length})` },
@@ -1810,7 +1798,6 @@ function AdminDashboard({
         ))}
       </div>
 
-      {/* SUB-TAB 1: 자체 상품 판매 주문 접수 및 배송 관리 */}
       {adminSubTab === 'orders' && (
         <section className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-sm space-y-4">
           <div className="flex items-center justify-between">
@@ -1895,7 +1882,6 @@ function AdminDashboard({
         </section>
       )}
 
-      {/* SUB-TAB 2: 등록된 상품 목록 & 독립 판매페이지 바로가기 */}
       {adminSubTab === 'products' && (
         <section className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-sm space-y-3">
           <div className="flex items-center justify-between mb-2">
@@ -1988,7 +1974,6 @@ function AdminDashboard({
         </section>
       )}
 
-      {/* SUB-TAB 3: 제3자 결제 폼 기본 링크, Supabase DB, 무통장 계좌, PIN 설정 */}
       {adminSubTab === 'settings' && (
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
           <div className="space-y-4">
@@ -2121,7 +2106,7 @@ function AdminDashboard({
   );
 }
 
-// --- ProductFormModal.jsx ---
+// --- ProductFormModal ---
 function ProductFormModal({
   editingItem,
   defaultVideoNumber,
@@ -2279,37 +2264,60 @@ function ProductFormModal({
     }
   };
 
-  const handleMainImageUpload = (e) => {
-    const files = Array.from(e.target.files || []);
-    if (files.length === 0) return;
-
-    files.forEach((file, idx) => {
+  // 고화질 사진을 브라우저 저장소 용량 초과 없이 영구 보존하기 위한 자동 리사이징·압축 헬퍼
+  const compressImageFile = (file, maxWidth = 1000, quality = 0.8) => {
+    return new Promise((resolve) => {
       const reader = new FileReader();
-      reader.onload = () => {
-        const dataUrl = reader.result;
-        if (idx === 0) {
-          setImageUrl(dataUrl);
-        }
-        setGalleryImages((prev) => [...prev, dataUrl]);
+      reader.onload = (ev) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          let { width, height } = img;
+          if (width > maxWidth) {
+            height = Math.round((height * maxWidth) / width);
+            width = maxWidth;
+          }
+          canvas.width = width;
+          canvas.height = height;
+          const ctx = canvas.getContext('2d');
+          ctx.drawImage(img, 0, 0, width, height);
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        };
+        img.onerror = () => resolve(ev.target.result);
+        img.src = ev.target.result;
       };
       reader.readAsDataURL(file);
     });
-    onShowToast(`📸 ${files.length}장의 사진이 상품 갤러리에 추가되었습니다!`);
   };
 
-  const handleBlockImageUpload = (idx, e) => {
+  // 로컬 이미지 파일 선택 (자동 최적화 후 대표 + 갤러리 추가)
+  const handleMainImageUpload = async (e) => {
+    const files = Array.from(e.target.files || []);
+    if (files.length === 0) return;
+
+    const compressedList = await Promise.all(
+      files.map((file) => compressImageFile(file, 1000, 0.8))
+    );
+
+    if (compressedList[0]) {
+      setImageUrl(compressedList[0]);
+    }
+    setGalleryImages((prev) => [...prev, ...compressedList]);
+    onShowToast(`📸 ${files.length}장의 사진이 용량 최적화되어 갤러리에 추가되었습니다!`);
+  };
+
+  // 상세 블록 이미지 업로드 (자동 최적화)
+  const handleBlockImageUpload = async (idx, e) => {
     const file = e.target.files?.[0];
     if (!file) return;
-    const reader = new FileReader();
-    reader.onload = () => {
-      setDetailBlocks((prev) =>
-        prev.map((blk, i) => (i === idx ? { ...blk, image: reader.result } : blk))
-      );
-      onShowToast('📸 상세 설명 섹션 사진이 등록되었습니다.');
-    };
-    reader.readAsDataURL(file);
+    const optimizedUrl = await compressImageFile(file, 960, 0.78);
+    setDetailBlocks((prev) =>
+      prev.map((blk, i) => (i === idx ? { ...blk, image: optimizedUrl } : blk))
+    );
+    onShowToast('📸 상세 설명 섹션 사진이 등록되었습니다.');
   };
 
+  // 원화 입력 시 달러(USD) 자동 환산 보조
   const handlePriceChange = (val) => {
     setPrice(val);
     const num = Number(val);
@@ -2318,6 +2326,7 @@ function ProductFormModal({
     }
   };
 
+  // AI 한·영 마케팅 문구 및 글로벌 영문 번역 자동 완성
   const handleAiAutoFillAndTranslate = () => {
     if (!productName.trim()) {
       onShowToast('⚠️ 먼저 한국어 상품명을 입력해 주세요.');
@@ -2328,11 +2337,7 @@ function ProductFormModal({
       const pLabel =
         platform === 'instagram' ? '릴스' : platform === 'tiktok' ? '틱톡' : '쇼츠';
       const pLabelEn =
-        platform === 'instagram'
-          ? 'Reels'
-          : platform === 'tiktok'
-          ? 'TikTok'
-          : 'Shorts';
+        platform === 'instagram' ? 'Reels' : platform === 'tiktok' ? 'TikTok' : 'Shorts';
 
       if (!videoTitle.trim()) {
         setVideoTitle(
@@ -2473,7 +2478,9 @@ function ProductFormModal({
               KR / EN 글로벌 독립 판매 페이지 빌더 (관리자 전용)
             </span>
             <h2 className="text-lg font-black text-zinc-900">
-              {editingItem ? '상품 및 독립 판매페이지 수정' : '새 상품 & 독립 판매페이지 만들기'}
+              {editingItem
+                ? '상품 및 독립 판매페이지 수정'
+                : '새 상품 & 독립 판매페이지 만들기'}
             </h2>
             <p className="text-xs text-zinc-500 mt-0.5">
               ① 홈페이지 연동 ② 온라인 플랫폼 연동 ③ 홈페이지 없이 직접 사진·내용 업로드 중 선택하세요.
@@ -3086,7 +3093,7 @@ function ProductFormModal({
   );
 }
 
-// --- App.jsx ---
+// --- App ---
 const safeGetStorage = (key, fallback) => {
   try {
     const val = localStorage.getItem(key);
@@ -3099,10 +3106,59 @@ const safeGetStorage = (key, fallback) => {
 const safeSetStorage = (key, val) => {
   try {
     localStorage.setItem(key, val);
+    return true;
   } catch {
-    // ignore storage quota or iframe error
+    return false;
   }
 };
+
+// 대용량 사진이 포함된 상품 데이터를 새로고침 후에도 영구 보존하기 위한 IndexedDB 백업 스토리지
+const IDB_NAME = 'shortpick_store_db';
+const IDB_STORE = 'kv_store';
+
+function idbSave(key, value) {
+  return new Promise((resolve) => {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(IDB_STORE)) {
+          req.result.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => {
+        const tx = req.result.transaction(IDB_STORE, 'readwrite');
+        tx.objectStore(IDB_STORE).put(value, key);
+        tx.oncomplete = () => resolve(true);
+        tx.onerror = () => resolve(false);
+      };
+      req.onerror = () => resolve(false);
+    } catch {
+      resolve(false);
+    }
+  });
+}
+
+function idbLoad(key) {
+  return new Promise((resolve) => {
+    try {
+      const req = indexedDB.open(IDB_NAME, 1);
+      req.onupgradeneeded = () => {
+        if (!req.result.objectStoreNames.contains(IDB_STORE)) {
+          req.result.createObjectStore(IDB_STORE);
+        }
+      };
+      req.onsuccess = () => {
+        const tx = req.result.transaction(IDB_STORE, 'readonly');
+        const getReq = tx.objectStore(IDB_STORE).get(key);
+        getReq.onsuccess = () => resolve(getReq.result ?? null);
+        getReq.onerror = () => resolve(null);
+      };
+      req.onerror = () => resolve(null);
+    } catch {
+      resolve(null);
+    }
+  });
+}
 
 export default function App() {
   const envUrl =
@@ -3125,6 +3181,7 @@ export default function App() {
   const [selectedShopProduct, setSelectedShopProduct] = useState(null);
   const [refPlatform, setRefPlatform] = useState('shortform');
 
+  // 관리자 인증 상태 (일반 방문자는 상품 등록 불가, 관리자 PIN 잠금 해제 시에만 허용)
   const [isAdmin, setIsAdmin] = useState(false);
   const [adminPin, setAdminPin] = useState(() =>
     safeGetStorage('sf_admin_pin', '1234')
@@ -3133,6 +3190,7 @@ export default function App() {
   const [pinInput, setPinInput] = useState('');
   const [pinError, setPinError] = useState('');
 
+  // Supabase DB 상태
   const [sbUrl, setSbUrl] = useState(
     () => envUrl || safeGetStorage('sf_supabase_url', '')
   );
@@ -3142,6 +3200,7 @@ export default function App() {
   const [dbConnected, setDbConnected] = useState(Boolean(envUrl && envKey));
   const [isSyncingDb, setIsSyncingDb] = useState(false);
 
+  // 상품 & 주문 데이터
   const [products, setProducts] = useState(() => {
     try {
       const saved = localStorage.getItem('sf_products_v3');
@@ -3150,6 +3209,7 @@ export default function App() {
       return INITIAL_PRODUCTS;
     }
   });
+  const [isStorageHydrated, setIsStorageHydrated] = useState(false);
   const [orders, setOrders] = useState(() => {
     try {
       const saved = localStorage.getItem('sf_direct_orders');
@@ -3181,9 +3241,38 @@ export default function App() {
     setTimeout(() => setToastMessage(null), 3500);
   };
 
+  // 앱 최초 마운트 시 IndexedDB에서 대용량 이미지 포함 상품 목록 복원
   useEffect(() => {
-    safeSetStorage('sf_products_v3', JSON.stringify(products));
-  }, [products]);
+    let mounted = true;
+    (async () => {
+      const idbProducts = await idbLoad('sf_products_v3');
+      if (mounted && Array.isArray(idbProducts) && idbProducts.length > 0) {
+        setProducts(idbProducts);
+        const params = new URLSearchParams(window.location.search);
+        const shopVideoNum = params.get('shop');
+        if (shopVideoNum) {
+          const found = idbProducts.find(
+            (p) => String(p.shortform_posts?.video_number) === String(shopVideoNum)
+          );
+          if (found) {
+            setSelectedShopProduct(found);
+            setActiveTab('shop');
+          }
+        }
+      }
+      if (mounted) setIsStorageHydrated(true);
+    })();
+    return () => {
+      mounted = false;
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isStorageHydrated) return;
+    const serialized = JSON.stringify(products);
+    safeSetStorage('sf_products_v3', serialized);
+    idbSave('sf_products_v3', products);
+  }, [products, isStorageHydrated]);
 
   useEffect(() => {
     safeSetStorage('sf_direct_orders', JSON.stringify(orders));
@@ -3193,6 +3282,7 @@ export default function App() {
     safeSetStorage('sf_lang_mode', lang);
   }, [lang]);
 
+  // Supabase 데이터 동기화 (DB에 등록된 상품과 로컬 등록 상품을 병합하여 유실 방지)
   const syncSupabase = async (url = sbUrl, key = sbKey) => {
     if (!url || !key) return false;
     setIsSyncingDb(true);
@@ -3203,7 +3293,14 @@ export default function App() {
       ]);
       setDbConnected(true);
       if (Array.isArray(fetchedProducts) && fetchedProducts.length > 0) {
-        setProducts(fetchedProducts);
+        setProducts((prev) => {
+          const localOnly = prev.filter((p) => String(p.id).startsWith('local-'));
+          const remoteIds = new Set(fetchedProducts.map((r) => r.id));
+          return [
+            ...localOnly.filter((l) => !remoteIds.has(l.id)),
+            ...fetchedProducts,
+          ];
+        });
       }
       if (Array.isArray(fetchedOrders)) {
         setOrders(fetchedOrders);
@@ -3323,13 +3420,14 @@ export default function App() {
     showToast('✅ 주문 처리 상태가 변경되었습니다.');
   };
 
-  // 상품 등록 및 수정 저장 (관리자 전용)
+  // 상품 등록 및 수정 저장 (관리자 전용 + 독립 판매 페이지 생성 + 즉시 영구 저장)
   const handleSaveProduct = async (formData) => {
     if (!isAdmin) {
       showToast('🔒 관리자만 상품을 등록하거나 수정할 수 있습니다.');
       setShowProductModal(false);
       return;
     }
+
     if (editingItem) {
       const updatedItem = {
         ...editingItem,
@@ -3365,13 +3463,18 @@ export default function App() {
           tags: formData.tags,
         },
       };
-      setProducts((prev) =>
-        prev.map((p) => (p.id === editingItem.id ? updatedItem : p))
+
+      const updatedList = products.map((p) =>
+        p.id === editingItem.id ? updatedItem : p
       );
+      setProducts(updatedList);
+      safeSetStorage('sf_products_v3', JSON.stringify(updatedList));
+      await idbSave('sf_products_v3', updatedList);
+
       if (selectedShopProduct?.id === editingItem.id) {
         setSelectedShopProduct(updatedItem);
       }
-      showToast('✅ 상품 및 독립 판매페이지 정보가 수정되었습니다.');
+      showToast('✅ 상품 및 독립 판매페이지 정보가 영구 저장되었습니다.');
     } else {
       const postId = `post-${Date.now()}`;
       const newEntry = {
@@ -3413,19 +3516,37 @@ export default function App() {
           tags: formData.tags,
         },
       };
-      setProducts((prev) => [newEntry, ...prev]);
+
+      const nextProducts = [newEntry, ...products];
+      setProducts(nextProducts);
+      safeSetStorage('sf_products_v3', JSON.stringify(nextProducts));
+      await idbSave('sf_products_v3', nextProducts);
+
       setSelectedShopProduct(newEntry);
       setActiveTab('shop');
+      try {
+        window.history.replaceState(
+          {},
+          '',
+          `?shop=${formData.videoNumber}&lang=${lang}`
+        );
+      } catch {
+        // ignore
+      }
       showToast(
-        `🎉 #${formData.videoNumber}번 상품의 독립 판매페이지(KR/EN)가 생성되었습니다!`
+        `🎉 #${formData.videoNumber}번 상품의 독립 판매페이지(KR/EN)가 생성 및 저장되었습니다!`
       );
     }
     setShowProductModal(false);
   };
 
-  const confirmDeleteProduct = () => {
+  const confirmDeleteProduct = async () => {
     if (!deletingItem || !isAdmin) return;
-    setProducts((prev) => prev.filter((p) => p.id !== deletingItem.id));
+    const filtered = products.filter((p) => p.id !== deletingItem.id);
+    setProducts(filtered);
+    safeSetStorage('sf_products_v3', JSON.stringify(filtered));
+    await idbSave('sf_products_v3', filtered);
+
     if (selectedShopProduct?.id === deletingItem.id) {
       setSelectedShopProduct(null);
       setActiveTab('store');
