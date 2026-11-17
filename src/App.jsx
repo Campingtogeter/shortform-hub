@@ -376,25 +376,25 @@ function StoreView({
     switch (plat) {
       case 'instagram':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-gradient-to-r from-purple-600 via-pink-500 to-orange-500 text-white shadow-sm">
-            <InstagramIcon className="w-3 h-3" /> Reels
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-pink-600">
+            <InstagramIcon className="w-3.5 h-3.5" /> Reels
           </span>
         );
       case 'tiktok':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-zinc-950 text-white border border-cyan-400/50 shadow-sm">
-            <Music2 className="w-3 h-3 text-cyan-400" /> TikTok
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-900">
+            <Music2 className="w-3.5 h-3.5" /> TikTok
           </span>
         );
       case 'youtube':
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-red-600 text-white shadow-sm">
-            <YoutubeIcon className="w-3 h-3" /> Shorts
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-red-600">
+            <YoutubeIcon className="w-3.5 h-3.5" /> Shorts
           </span>
         );
       default:
         return (
-          <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full text-[11px] font-bold bg-zinc-700 text-white">
+          <span className="inline-flex items-center gap-1 text-[11px] font-bold text-zinc-500">
             Featured
           </span>
         );
@@ -402,117 +402,85 @@ function StoreView({
   };
 
   return (
-    <main className="max-w-4xl mx-auto px-4 pt-6">
-      <div className="text-center mb-5">
-        <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-zinc-900 text-white text-[11px] font-bold mb-2.5">
-          <Sparkles className="w-3.5 h-3.5 text-amber-400" />
-          {isEn
-            ? 'Official Global Short-Form Product Store (KR / EN)'
-            : '홈페이지 연동 · 플랫폼 연동 · 직접 사진 업로드 독립 판매 스토어'}
-        </div>
-        <h1 className="text-2xl sm:text-3xl font-black tracking-tight text-zinc-900">
-          {isEn
-            ? 'Shop Products Featured in Our Videos'
-            : '영상에서 본 그 상품, 독립 판매페이지에서 바로 구매'}
+    <main className="max-w-5xl mx-auto px-4 pt-12 pb-24">
+      {/* 프리미엄 미니멀 히어로 */}
+      <div className="flex flex-col items-center text-center mb-12 space-y-4">
+        <h1 className="text-4xl sm:text-6xl font-black tracking-tighter text-zinc-900">
+          {isEn ? 'Featured Collection' : '공식 스토어'}
         </h1>
-        <p className="text-xs sm:text-sm text-zinc-500 mt-1">
-          {isEn ? (
-            <>
-              Enter the <strong className="text-zinc-900">#VideoNumber</strong> to open its standalone product page & checkout globally.
-            </>
-          ) : (
-            <>
-              각 상품을 클릭하면 <strong className="text-zinc-900">개별 독립 판매페이지(`?shop=번호`)</strong>와 제3자 온라인 결제 폼으로 연결됩니다.
-            </>
-          )}
+        <p className="text-sm sm:text-base text-zinc-500 max-w-md">
+          {isEn
+            ? 'Discover the exact products featured in our videos. Direct checkout available.'
+            : '영상에서 본 바로 그 상품, 빠르고 간편하게 확인하고 결제하세요.'}
         </p>
 
-        {/* 관리자 전용 빠른 직접 상품 등록 배너 (관리자 인증 시에만 노출) */}
         {isAdmin && (
-          <div className="mt-4 inline-flex flex-wrap items-center justify-center gap-2">
+          <div className="pt-2">
             <button
               onClick={onOpenManualCreate}
-              className="inline-flex items-center gap-1.5 px-4 py-2 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs transition-all"
+              className="inline-flex items-center gap-1.5 px-5 py-2.5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-bold transition-all shadow-md hover:shadow-lg"
             >
-              <Camera className="w-3.5 h-3.5" />
-              {isEn
-                ? '+ [Admin] Create Standalone Page (Direct Photo Upload / URL)'
-                : '+ [관리자 전용] 홈페이지 없이 직접 사진·내용 올려 판매페이지 만들기'}
+              <Plus className="w-4 h-4" />
+              {isEn ? 'Add New Product' : '새 상품 등록하기'}
             </button>
           </div>
         )}
       </div>
 
-      {/* 상단 고정 번호 검색바 */}
-      <div className="sticky top-16 z-30 bg-zinc-50/95 backdrop-blur-md py-3">
-        <div className="relative">
-          <Search className="w-5 h-5 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2 pointer-events-none" />
-          <input
-            type="text"
-            value={searchQuery}
-            onChange={(e) => setSearchQuery(e.target.value)}
-            placeholder={
-              isEn
-                ? 'Search by Video # (e.g. 106) or product name...'
-                : '영상 번호(예: 106, 105) 또는 상품명·키워드 입력...'
-            }
-            className="w-full pl-11 pr-10 py-3.5 bg-white border-2 border-zinc-900 rounded-2xl text-sm font-semibold text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:ring-4 focus:ring-zinc-900/10 shadow-sm"
-          />
-          {searchQuery && (
-            <button
-              onClick={() => setSearchQuery('')}
-              className="absolute right-3.5 top-1/2 -translate-y-1/2 p-1 text-zinc-400 hover:text-zinc-700"
-            >
-              <X className="w-4 h-4" />
-            </button>
-          )}
-        </div>
+      {/* 미니멀 검색 및 필터 */}
+      <div className="sticky top-20 z-30 bg-zinc-50/90 backdrop-blur-xl py-4 border-b border-zinc-200/50 mb-8">
+        <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+          <div className="relative w-full sm:max-w-xs">
+            <Search className="w-4 h-4 text-zinc-400 absolute left-4 top-1/2 -translate-y-1/2" />
+            <input
+              type="text"
+              value={searchQuery}
+              onChange={(e) => setSearchQuery(e.target.value)}
+              placeholder={isEn ? 'Search item or #...' : '상품명 또는 영상 번호...'}
+              className="w-full pl-10 pr-10 py-2.5 bg-white border border-zinc-200 rounded-full text-sm text-zinc-900 placeholder:text-zinc-400 focus:outline-none focus:border-zinc-400 transition-colors shadow-sm"
+            />
+            {searchQuery && (
+              <button
+                onClick={() => setSearchQuery('')}
+                className="absolute right-3 top-1/2 -translate-y-1/2 p-1 text-zinc-400 hover:text-zinc-900"
+              >
+                <X className="w-3.5 h-3.5" />
+              </button>
+            )}
+          </div>
 
-        <div className="flex items-center justify-between gap-2 mt-3">
-          <div className="flex items-center gap-1.5 overflow-x-auto no-scrollbar">
+          <div className="flex items-center gap-2 overflow-x-auto no-scrollbar pb-1 sm:pb-0">
             {[
-              { id: 'all', label: isEn ? 'All Items' : '전체 보기' },
-              { id: 'instagram', label: isEn ? 'Instagram Reels' : '인스타 릴스' },
-              { id: 'tiktok', label: isEn ? 'TikTok' : '틱톡' },
-              { id: 'youtube', label: isEn ? 'YouTube Shorts' : '유튜브 쇼츠' },
+              { id: 'all', label: isEn ? 'All' : '전체' },
+              { id: 'instagram', label: 'Reels' },
+              { id: 'tiktok', label: 'TikTok' },
+              { id: 'youtube', label: 'Shorts' },
             ].map((plat) => (
               <button
                 key={plat.id}
                 onClick={() => setSelectedPlatform(plat.id)}
-                className={`px-3.5 py-1.5 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
+                className={`px-4 py-2 rounded-full text-xs font-bold whitespace-nowrap transition-all ${
                   selectedPlatform === plat.id
-                    ? 'bg-zinc-900 text-white shadow-sm'
-                    : 'bg-white text-zinc-600 border border-zinc-200 hover:bg-zinc-100'
+                    ? 'bg-zinc-900 text-white shadow-md'
+                    : 'bg-white text-zinc-600 hover:bg-zinc-100 border border-zinc-200'
                 }`}
               >
                 {plat.label}
               </button>
             ))}
           </div>
-          <span className="text-xs font-bold text-zinc-500 shrink-0">
-            {isEn ? `${filteredProducts.length} items` : `총 ${filteredProducts.length}개`}
-          </span>
         </div>
       </div>
 
-      {/* 상품 목록 그리드 */}
+      {/* 상품 갤러리 그리드 */}
       {filteredProducts.length === 0 ? (
-        <div className="text-center py-16 bg-white rounded-3xl border border-zinc-200 mt-4">
-          <p className="text-base font-extrabold text-zinc-800">
-            {isEn ? 'No matching products found.' : '일치하는 영상 번호나 상품이 없습니다.'}
+        <div className="text-center py-24">
+          <p className="text-sm font-semibold text-zinc-400">
+            {isEn ? 'No products found.' : '검색 결과가 없습니다.'}
           </p>
-          <button
-            onClick={() => {
-              setSearchQuery('');
-              setSelectedPlatform('all');
-            }}
-            className="mt-4 px-4 py-2 bg-zinc-900 text-white text-xs font-bold rounded-xl"
-          >
-            {isEn ? 'Show All Products' : '전체 상품 보기'}
-          </button>
         </div>
       ) : (
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mt-2">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 gap-y-12">
           {filteredProducts.map((item) => {
             const post = item.shortform_posts;
             const isSummaryOpen = expandedSummaryId === item.id;
@@ -522,9 +490,6 @@ function StoreView({
             const displayDesc = isEn
               ? item.description_en || item.description
               : item.description;
-            const displayVideoTitle = isEn
-              ? post?.title_en || post?.title
-              : post?.title;
             const displayBadge = isEn
               ? item.badge_text_en || item.badge_text
               : item.badge_text;
@@ -538,179 +503,136 @@ function StoreView({
               (priceKrw > 0 ? Math.max(1, Math.round(priceKrw / 1380)) : 0);
 
             return (
-              <article
-                key={item.id}
-                className="bg-white rounded-3xl border border-zinc-200/90 overflow-hidden shadow-sm hover:shadow-md transition-all flex flex-col justify-between"
-              >
-                <div>
-                  <div
-                    onClick={() => onOpenDirectShop(item)}
-                    className="relative aspect-[4/3] bg-zinc-100 overflow-hidden cursor-pointer"
-                  >
-                    <img
-                      src={
-                        item.image_url ||
-                        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80'
-                      }
-                      alt={displayTitle}
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-300"
-                    />
+              <article key={item.id} className="group flex flex-col">
+                <div
+                  onClick={() => onOpenDirectShop(item)}
+                  className="relative aspect-[4/5] bg-zinc-100 rounded-3xl overflow-hidden cursor-pointer shadow-sm group-hover:shadow-xl transition-all duration-500"
+                >
+                  <img
+                    src={
+                      item.image_url ||
+                      'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=700&q=80'
+                    }
+                    alt={displayTitle}
+                    className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-700 ease-out"
+                  />
 
-                    <div className="absolute top-3 left-3 flex items-center gap-1.5">
-                      <span className="bg-zinc-950/90 backdrop-blur-sm text-white px-2.5 py-1 rounded-xl text-xs font-black shadow">
-                        #{post?.video_number || '-'}
-                      </span>
-                      <span className="bg-emerald-600 text-white px-2 py-1 rounded-xl text-[10px] font-black shadow">
-                        {isEn ? 'Standalone Page' : '독립 판매페이지'}
-                      </span>
-                      {item.source_type === 'manual' && (
-                        <span className="bg-indigo-600 text-white px-2 py-1 rounded-xl text-[10px] font-black shadow">
-                          {isEn ? 'Direct Photo' : '직접등록'}
-                        </span>
-                      )}
-                    </div>
-
-                    <div className="absolute top-3 right-3">
+                  {/* 세련된 뱃지 오버레이 */}
+                  <div className="absolute top-4 left-4 right-4 flex justify-between items-start">
+                    <span className="bg-white/90 backdrop-blur-md text-zinc-900 px-3 py-1.5 rounded-full text-xs font-black shadow-sm">
+                      #{post?.video_number || '-'}
+                    </span>
+                    <div className="bg-white/90 backdrop-blur-md px-3 py-1.5 rounded-full shadow-sm">
                       {renderPlatformBadge(post?.platform)}
                     </div>
-
-                    {displayBadge && (
-                      <div className="absolute bottom-2.5 left-3">
-                        <span className="inline-flex items-center gap-1 bg-amber-400 text-zinc-950 text-[11px] font-extrabold px-2.5 py-1 rounded-lg shadow">
-                          <Sparkles className="w-3 h-3 fill-zinc-950" />
-                          {displayBadge}
-                        </span>
-                      </div>
-                    )}
                   </div>
 
-                  <div className="p-4">
-                    {displayVideoTitle && (
-                      <p className="text-[11px] font-semibold text-zinc-400 line-clamp-1 mb-1">
-                        🎬 {displayVideoTitle}
-                      </p>
-                    )}
-                    <h2
-                      onClick={() => onOpenDirectShop(item)}
-                      className="text-base font-extrabold text-zinc-900 leading-snug cursor-pointer hover:text-emerald-700"
-                    >
-                      {displayTitle}
-                    </h2>
-                    {displayDesc && (
-                      <p className="text-xs text-zinc-500 mt-1 line-clamp-2">
-                        {displayDesc}
-                      </p>
-                    )}
-
-                    <div className="flex items-center justify-between mt-3">
-                      {priceKrw > 0 ? (
-                        <div>
-                          <span className="text-base font-black text-zinc-900">
-                            {isEn
-                              ? `$${priceUsd.toLocaleString()} USD`
-                              : `${priceKrw.toLocaleString()}원`}
-                          </span>
-                          <span className="text-[11px] font-bold text-zinc-400 ml-1.5">
-                            {isEn
-                              ? `(₩${priceKrw.toLocaleString()})`
-                              : `($${priceUsd} USD)`}
-                          </span>
-                        </div>
-                      ) : (
-                        <span className="text-xs font-bold text-zinc-400">
-                          {isEn ? 'Check Price inside' : '상세페이지 가격 확인'}
-                        </span>
-                      )}
-
-                      {displaySummary && (
-                        <button
-                          onClick={() =>
-                            setExpandedSummaryId(isSummaryOpen ? null : item.id)
-                          }
-                          className="inline-flex items-center gap-1 text-[11px] font-bold text-indigo-600 bg-indigo-50 hover:bg-indigo-100 px-2.5 py-1 rounded-lg transition-colors"
-                        >
-                          <Sparkles className="w-3 h-3" />
-                          {isSummaryOpen
-                            ? isEn
-                              ? 'Hide'
-                              : '요약 닫기'
-                            : isEn
-                            ? 'AI Highlights'
-                            : 'AI 3줄 요약'}
-                        </button>
-                      )}
-                    </div>
-
-                    {isSummaryOpen && displaySummary && (
-                      <div className="mt-3 p-3 rounded-2xl bg-indigo-50/70 border border-indigo-100 text-xs text-zinc-700 whitespace-pre-line leading-relaxed">
-                        {displaySummary}
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="px-4 pb-4 pt-1 space-y-2">
-                  <div className="flex items-center gap-2">
-                    <button
-                      onClick={() => {
-                        onProductClick(item);
-                        onOpenDirectShop(item);
-                      }}
-                      className="flex-1 inline-flex items-center justify-center gap-1.5 py-3 px-4 bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-xs font-extrabold rounded-2xl transition-all shadow-sm"
-                    >
-                      <ShoppingBag className="w-3.5 h-3.5" />
-                      {isEn
-                        ? 'Open Product Page & Checkout'
-                        : '독립 판매페이지 열기 & 결제'}
-                    </button>
-
-                    {!isDirectSale && item.purchase_url && (
-                      <a
-                        href={item.purchase_url}
-                        target="_blank"
-                        rel="noopener noreferrer"
-                        onClick={() => onProductClick(item)}
-                        title={isEn ? 'External Platform' : '외부 쇼핑몰 바로가기'}
-                        className="p-3 bg-zinc-900 hover:bg-zinc-800 text-white rounded-2xl transition-colors"
-                      >
-                        <ExternalLink className="w-4 h-4" />
-                      </a>
-                    )}
-
-                    <button
-                      onClick={() => onCopyShopLink(item)}
-                      title={
-                        isEn
-                          ? 'Copy Standalone Product Page Link'
-                          : '독립 판매페이지 전용 링크 복사'
-                      }
-                      className="p-3 bg-zinc-100 hover:bg-zinc-200 text-zinc-800 rounded-2xl transition-colors"
-                    >
-                      <Share2 className="w-4 h-4" />
-                    </button>
-                  </div>
-
-                  {/* 관리자 전용 빠른 수정/삭제 바 */}
-                  {isAdmin && (
-                    <div className="flex items-center justify-end gap-1.5 pt-1 border-t border-zinc-100">
-                      <span className="text-[10px] font-bold text-blue-600 mr-auto">
-                        {isEn ? `${item.click_count || 0} views` : `클릭 ${item.click_count || 0}회`}
+                  {displayBadge && (
+                    <div className="absolute bottom-4 left-4">
+                      <span className="inline-flex items-center gap-1 bg-zinc-900 text-white text-[10px] uppercase font-bold tracking-wider px-3 py-1.5 rounded-full shadow-md">
+                        <Sparkles className="w-3 h-3 text-amber-400" />
+                        {displayBadge}
                       </span>
-                      <button
-                        onClick={() => onEditProduct(item)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-[11px] font-bold"
-                      >
-                        <Edit3 className="w-3 h-3" /> {isEn ? 'Edit' : '수정'}
-                      </button>
-                      <button
-                        onClick={() => onDeleteProduct(item)}
-                        className="inline-flex items-center gap-1 px-2.5 py-1 rounded-lg bg-red-50 hover:bg-red-100 text-red-600 text-[11px] font-bold"
-                      >
-                        <Trash2 className="w-3 h-3" /> {isEn ? 'Delete' : '삭제'}
-                      </button>
                     </div>
                   )}
                 </div>
+
+                <div className="mt-5 flex flex-col flex-1">
+                  <div className="flex justify-between items-start gap-4">
+                    <div>
+                      <h2
+                        onClick={() => onOpenDirectShop(item)}
+                        className="text-base font-bold text-zinc-900 leading-snug cursor-pointer group-hover:text-zinc-600 transition-colors line-clamp-2"
+                      >
+                        {displayTitle}
+                      </h2>
+                      {displayDesc && (
+                        <p className="text-sm text-zinc-500 mt-1.5 line-clamp-1">
+                          {displayDesc}
+                        </p>
+                      )}
+                    </div>
+                    <div className="text-right shrink-0">
+                      {priceKrw > 0 ? (
+                        <span className="text-lg font-black tracking-tight text-zinc-900">
+                          {isEn
+                            ? `$${priceUsd.toLocaleString()}`
+                            : `${priceKrw.toLocaleString()}원`}
+                        </span>
+                      ) : (
+                        <span className="text-xs font-bold text-zinc-400">Info</span>
+                      )}
+                    </div>
+                  </div>
+
+                  {displaySummary && (
+                    <div className="mt-3">
+                      <button
+                        onClick={() => setExpandedSummaryId(isSummaryOpen ? null : item.id)}
+                        className="text-[11px] font-bold text-zinc-500 hover:text-zinc-900 transition-colors flex items-center gap-1"
+                      >
+                        {isSummaryOpen ? '- Close details' : '+ View AI Highlights'}
+                      </button>
+                      {isSummaryOpen && (
+                        <div className="mt-2 p-3 rounded-2xl bg-zinc-100 text-xs text-zinc-600 whitespace-pre-line leading-relaxed">
+                          {displaySummary}
+                        </div>
+                      )}
+                    </div>
+                  )}
+                </div>
+
+                {/* 하단 액션 버튼 그룹 */}
+                <div className="mt-5 pt-4 border-t border-zinc-200/60 flex items-center gap-2">
+                  <button
+                    onClick={() => {
+                      onProductClick(item);
+                      onOpenDirectShop(item);
+                    }}
+                    className="flex-1 py-3 px-4 bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-bold rounded-full transition-all text-center"
+                  >
+                    {isEn ? 'View Product' : '자세히 보기'}
+                  </button>
+
+                  <button
+                    onClick={() => onCopyShopLink(item)}
+                    className="p-3 bg-white border border-zinc-200 hover:border-zinc-400 text-zinc-900 rounded-full transition-colors"
+                  >
+                    <Share2 className="w-4 h-4" />
+                  </button>
+                  
+                  {!isDirectSale && item.purchase_url && (
+                    <a
+                      href={item.purchase_url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="p-3 bg-white border border-zinc-200 hover:border-zinc-400 text-zinc-900 rounded-full transition-colors"
+                    >
+                      <ExternalLink className="w-4 h-4" />
+                    </a>
+                  )}
+                </div>
+
+                {/* 관리자 툴 */}
+                {isAdmin && (
+                  <div className="flex items-center justify-end gap-2 mt-3">
+                    <span className="text-[10px] font-semibold text-zinc-400 mr-auto">
+                      Views: {item.click_count || 0}
+                    </span>
+                    <button
+                      onClick={() => onEditProduct(item)}
+                      className="p-2 text-zinc-400 hover:text-zinc-900 transition-colors"
+                    >
+                      <Edit3 className="w-4 h-4" />
+                    </button>
+                    <button
+                      onClick={() => onDeleteProduct(item)}
+                      className="p-2 text-zinc-400 hover:text-red-600 transition-colors"
+                    >
+                      <Trash2 className="w-4 h-4" />
+                    </button>
+                  </div>
+                )}
               </article>
             );
           })}
@@ -775,19 +697,20 @@ function DirectShopView({
     setActiveImage(gallery[0]);
     setSelectedOption(localizedOptions[0]);
     setBuyerCountry(isEn ? 'United States' : '대한민국 (South Korea)');
+    window.scrollTo({ top: 0, behavior: 'auto' });
   }, [product, lang]);
 
   if (!product) {
     return (
-      <div className="max-w-lg mx-auto p-8 text-center">
-        <p className="text-sm font-bold text-zinc-600">
+      <div className="flex flex-col items-center justify-center min-h-[60vh] text-center px-4">
+        <p className="text-base font-bold text-zinc-500 mb-6">
           {isEn ? 'Product not found.' : '해당 상품 정보를 찾을 수 없습니다.'}
         </p>
         <button
           onClick={onBackToStore}
-          className="mt-4 px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-bold"
+          className="px-6 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold shadow-lg"
         >
-          {isEn ? 'Back to Store' : '메인 스토어로 돌아가기'}
+          {isEn ? 'Return to Store' : '스토어로 돌아가기'}
         </button>
       </div>
     );
@@ -797,9 +720,6 @@ function DirectShopView({
   const displayDesc = isEn
     ? product.description_en || product.description
     : product.description;
-  const displayVideoTitle = isEn
-    ? post?.title_en || post?.title
-    : post?.title;
   const displayBadge = isEn
     ? product.badge_text_en || product.badge_text
     : product.badge_text;
@@ -840,8 +760,8 @@ function DirectShopView({
     }
     onShowToast(
       targetLang === 'en'
-        ? '🌐 Global English Product Page URL copied!'
-        : `🔗 #${post?.video_number || ''} 독립 판매페이지 링크가 복사되었습니다!`
+        ? 'URL copied to clipboard!'
+        : `판매페이지 링크가 복사되었습니다.`
     );
   };
 
@@ -850,8 +770,8 @@ function DirectShopView({
     if (!buyerName.trim() || !buyerPhone.trim() || !shippingAddress.trim()) {
       onShowToast(
         isEn
-          ? '⚠️ Please fill in Recipient Name, Phone, and Shipping Address.'
-          : '⚠️ 받는 분 성함, 연락처, 배송지를 모두 입력해 주세요.'
+          ? 'Please fill in required shipping fields.'
+          : '받는 분 성함, 연락처, 배송지를 확인해 주세요.'
       );
       return;
     }
@@ -900,6 +820,7 @@ function DirectShopView({
       setCompletedOrder(newOrder);
       setIsThirdPartyModalOpen(false);
       setIsOrderSheetOpen(false);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
     } finally {
       setIsSubmitting(false);
     }
@@ -907,647 +828,433 @@ function DirectShopView({
 
   if (completedOrder) {
     return (
-      <div className="min-h-[80vh] flex items-center justify-center p-4">
-        <div className="max-w-md w-full bg-white rounded-3xl border border-zinc-200 p-6 shadow-xl text-center space-y-4">
-          <div className="w-14 h-14 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center mx-auto">
-            <CheckCircle2 className="w-8 h-8" />
+      <div className="min-h-screen flex items-center justify-center p-4 bg-white">
+        <div className="max-w-md w-full bg-white rounded-3xl border border-zinc-100 p-8 shadow-[0_20px_50px_rgb(0,0,0,0.05)] text-center space-y-6">
+          <div className="w-20 h-20 rounded-full bg-zinc-900 text-white flex items-center justify-center mx-auto shadow-xl">
+            <CheckCircle2 className="w-10 h-10" />
           </div>
           <div>
-            <span className="text-xs font-extrabold text-emerald-600">
-              {isEn
-                ? `Order #${completedOrder.order_number}`
-                : `주문번호 ${completedOrder.order_number}`}
+            <span className="text-xs font-bold text-zinc-500 uppercase tracking-widest">
+              {isEn ? `Order #${completedOrder.order_number}` : `주문번호 ${completedOrder.order_number}`}
             </span>
-            <h1 className="text-xl font-black text-zinc-900 mt-1">
-              {isEn
-                ? 'Your Order is Confirmed!'
-                : '주문 및 결제 접수가 완료되었습니다!'}
+            <h1 className="text-2xl font-black text-zinc-900 mt-2 tracking-tight">
+              {isEn ? 'Thank you.' : '주문이 완료되었습니다.'}
             </h1>
-            <p className="text-xs text-zinc-500 mt-1">
+            <p className="text-sm text-zinc-500 mt-2">
               {isEn
-                ? 'Your package will be dispatched within 1-2 business days with tracking info.'
-                : '확인 후 영업일 기준 1~2일 이내 안전하게 출고됩니다.'}
+                ? "We've received your order and will begin processing it right away."
+                : '고객님의 소중한 주문이 성공적으로 접수되었습니다.'}
             </p>
           </div>
 
-          <div className="bg-zinc-50 rounded-2xl p-4 text-left text-xs space-y-2 border border-zinc-200">
+          <div className="bg-zinc-50 rounded-2xl p-5 text-left text-sm space-y-3">
+            <div className="flex justify-between border-b border-zinc-200/60 pb-3">
+              <span className="text-zinc-500">{isEn ? 'Total Paid' : '총 결제 금액'}</span>
+              <span className="font-black text-zinc-900">
+                {formatMoney(completedOrder.total_price, completedOrder.total_price_usd)}
+              </span>
+            </div>
             <div className="flex justify-between">
-              <span className="text-zinc-500">{isEn ? 'Product' : '주문 상품'}</span>
-              <span className="font-bold text-zinc-900 text-right max-w-[200px] truncate">
+              <span className="text-zinc-500">{isEn ? 'Product' : '상품명'}</span>
+              <span className="font-medium text-zinc-900 text-right max-w-[200px] truncate">
                 {completedOrder.product_name}
               </span>
             </div>
             <div className="flex justify-between">
-              <span className="text-zinc-500">{isEn ? 'Option / Qty' : '옵션 / 수량'}</span>
-              <span className="font-bold text-zinc-900">
-                {completedOrder.selected_option} × {completedOrder.quantity}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">{isEn ? 'Recipient' : '받는 분'}</span>
-              <span className="font-bold text-zinc-900">
-                {completedOrder.buyer_name} ({completedOrder.buyer_country})
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">{isEn ? 'Shipping Address' : '배송지'}</span>
-              <span className="font-bold text-zinc-900 text-right max-w-[210px]">
+              <span className="text-zinc-500">{isEn ? 'Shipping' : '배송지'}</span>
+              <span className="font-medium text-zinc-900 text-right max-w-[210px] truncate">
                 {completedOrder.shipping_address}
-              </span>
-            </div>
-            <div className="flex justify-between">
-              <span className="text-zinc-500">{isEn ? 'Payment Method' : '결제 방식'}</span>
-              <span className="font-bold text-indigo-700">
-                {completedOrder.payment_method === 'bank_transfer'
-                  ? isEn
-                    ? 'Wire Transfer'
-                    : '무통장 입금'
-                  : `${completedOrder.payment_provider} (Online Form)`}
-              </span>
-            </div>
-            <div className="flex justify-between pt-2 border-t border-zinc-200">
-              <span className="font-bold text-zinc-700">
-                {isEn ? 'Total Amount' : '총 결제 금액'}
-              </span>
-              <span className="text-base font-black text-emerald-600">
-                {formatMoney(completedOrder.total_price, completedOrder.total_price_usd)}
               </span>
             </div>
           </div>
 
-          {activeThirdPartyUrl && completedOrder.payment_method !== 'bank_transfer' && (
-            <a
-              href={activeThirdPartyUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              className="w-full py-3.5 rounded-2xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-md"
-            >
-              <CreditCard className="w-4 h-4" />
-              {isEn
-                ? 'Open External 3rd-Party Payment Receipt / Page'
-                : '제3자 온라인 결제창 새 탭에서 다시 열기'}
-              <ExternalLink className="w-3.5 h-3.5" />
-            </a>
-          )}
-
           {completedOrder.payment_method === 'bank_transfer' && (
-            <div className="p-3.5 rounded-2xl bg-amber-50 border border-amber-200 text-left text-xs text-amber-950 space-y-1">
-              <p className="font-extrabold">
-                {isEn ? '🏦 Bank Wire Instructions' : '🏦 입금 계좌 안내'}
+            <div className="p-4 rounded-2xl bg-zinc-100 text-left text-sm space-y-1">
+              <p className="font-bold text-zinc-900">
+                {isEn ? 'Bank Transfer Details' : '입금 계좌 안내'}
               </p>
-              <p className="font-bold">{bankAccountInfo}</p>
+              <p className="text-zinc-600">{bankAccountInfo}</p>
             </div>
           )}
 
-          <button
-            onClick={onBackToStore}
-            className="w-full py-3.5 rounded-2xl bg-zinc-900 text-white text-xs font-extrabold"
-          >
-            {isEn ? 'Back to All Products' : '전체 스토어 목록으로 돌아가기'}
-          </button>
+          <div className="pt-4 flex flex-col gap-3">
+            {activeThirdPartyUrl && completedOrder.payment_method !== 'bank_transfer' && (
+              <a
+                href={activeThirdPartyUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full py-4 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 text-sm font-bold transition-colors text-center"
+              >
+                {isEn ? 'View Receipt / Payment Gateway' : '결제 영수증 확인'}
+              </a>
+            )}
+            <button
+              onClick={onBackToStore}
+              className="w-full py-4 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white text-sm font-bold transition-colors shadow-lg"
+            >
+              {isEn ? 'Continue Shopping' : '쇼핑 계속하기'}
+            </button>
+          </div>
         </div>
       </div>
     );
   }
 
-  const sourceLabel =
-    product.source_type === 'manual'
-      ? isEn
-        ? '📸 Direct Creator Upload'
-        : '📸 직접 등록 공식페이지'
-      : product.source_type === 'homepage'
-      ? isEn
-        ? '🌐 Brand Homepage Sync'
-        : '🌐 홈페이지 연동 상품'
-      : isEn
-      ? '🛒 Platform Verified'
-      : '🛒 플랫폼 연동 상품';
-
   return (
-    <div className="pb-28">
-      <div className="max-w-2xl mx-auto bg-white border-x border-b border-zinc-200 shadow-xs">
-        <div className="px-4 py-3 border-b border-zinc-100 flex flex-wrap items-center justify-between gap-2 bg-zinc-50/70">
+    <div className="bg-white min-h-screen pb-32">
+      {/* 초미니멀 상단 네비게이션 */}
+      <div className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-zinc-100">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
           <button
             onClick={onBackToStore}
-            className="inline-flex items-center gap-1 text-xs font-bold text-zinc-700 hover:text-zinc-900"
+            className="inline-flex items-center gap-2 text-sm font-bold text-zinc-900 hover:opacity-70 transition-opacity"
           >
-            <ChevronLeft className="w-4 h-4" />
-            {isEn ? 'All Products' : '전체 상품 보기'}
+            <ChevronLeft className="w-5 h-5" />
+            {isEn ? 'Back' : '뒤로'}
           </button>
-
-          <div className="flex items-center gap-1.5">
-            <span className="text-[11px] font-black bg-zinc-900 text-white px-2.5 py-1 rounded-lg">
-              #{post?.video_number || '-'}
+          
+          <div className="flex items-center gap-3">
+            <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400 hidden sm:block">
+              {isEn ? 'Official Direct Store' : '공식 독립 판매'}
             </span>
-            <span className="text-[11px] font-bold bg-emerald-100 text-emerald-800 px-2.5 py-1 rounded-lg">
-              {sourceLabel}
-            </span>
-          </div>
-
-          <div className="flex items-center gap-1.5">
             <button
               onClick={onToggleLang}
-              className="inline-flex items-center gap-1 px-2.5 py-1 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-100 text-[11px] font-extrabold text-zinc-800 shadow-2xs"
+              className="text-xs font-bold text-zinc-500 hover:text-zinc-900 transition-colors"
             >
-              <Globe className="w-3.5 h-3.5 text-indigo-600" />
-              {isEn ? '한국어 (KRW)' : 'GLOBAL (EN / USD)'}
+              {isEn ? 'KRW' : 'USD'}
             </button>
             <button
               onClick={() => handleCopyDirectUrl(lang)}
-              className="p-1.5 rounded-xl bg-white border border-zinc-200 text-zinc-700 hover:bg-zinc-100"
-              title={isEn ? 'Copy Direct Page URL' : '독립 판매페이지 주소 복사'}
+              className="p-2 bg-zinc-100 hover:bg-zinc-200 rounded-full text-zinc-900 transition-colors"
             >
               <Share2 className="w-4 h-4" />
             </button>
           </div>
         </div>
+      </div>
 
-        {/* 1. 대표 상품 이미지 & 멀티 사진 갤러리 */}
-        <div className="bg-zinc-100">
-          <div className="relative aspect-square sm:aspect-[4/3] bg-zinc-100 overflow-hidden">
-            <img
-              src={activeImage}
-              alt={displayTitle}
-              className="w-full h-full object-cover"
-            />
-            {displayBadge && (
-              <div className="absolute bottom-3 left-3">
-                <span className="inline-flex items-center gap-1 bg-amber-400 text-zinc-950 text-xs font-black px-3 py-1.5 rounded-xl shadow">
-                  <Sparkles className="w-3.5 h-3.5 fill-zinc-950" />
-                  {displayBadge}
-                </span>
-              </div>
-            )}
-          </div>
-
-          {gallery.length > 1 && (
-            <div className="px-4 py-3 bg-white border-b border-zinc-100 flex items-center gap-2 overflow-x-auto">
-              {gallery.map((imgUrl, idx) => (
-                <button
-                  key={idx}
-                  type="button"
-                  onClick={() => setActiveImage(imgUrl)}
-                  className={`w-16 h-16 rounded-xl overflow-hidden border-2 shrink-0 transition-all ${
-                    activeImage === imgUrl
-                      ? 'border-zinc-900 scale-105 shadow-xs'
-                      : 'border-zinc-200 opacity-70 hover:opacity-100'
-                  }`}
-                >
-                  <img src={imgUrl} alt="" className="w-full h-full object-cover" />
-                </button>
-              ))}
-            </div>
-          )}
-        </div>
-
-        {/* 2. 상품 타이틀 · 가격(KRW/USD) · 글로벌 배송 배지 */}
-        <div className="p-5 sm:p-6 space-y-3 border-b border-zinc-100">
-          {displayVideoTitle && (
-            <p className="text-xs font-bold text-indigo-600">🎬 {displayVideoTitle}</p>
-          )}
-          <h1 className="text-xl sm:text-2xl font-black text-zinc-900 leading-snug">
-            {displayTitle}
-          </h1>
-          {displayDesc && (
-            <p className="text-xs sm:text-sm text-zinc-600 leading-relaxed">
-              {displayDesc}
-            </p>
-          )}
-
-          <div className="flex flex-wrap items-baseline justify-between gap-2 pt-2">
-            <div className="flex items-baseline gap-2">
-              <span className="text-2xl sm:text-3xl font-black text-zinc-900">
-                {formatMoney(unitPriceKrw, unitPriceUsd)}
-              </span>
-              <span className="text-xs font-bold text-zinc-400">
-                {isEn
-                  ? `(approx. ₩${unitPriceKrw.toLocaleString()} KRW)`
-                  : `(해외결제 약 $${unitPriceUsd} USD)`}
-              </span>
-            </div>
-            <span className="text-xs font-bold text-emerald-700 bg-emerald-50 px-2.5 py-1 rounded-lg border border-emerald-200">
-              {isEn
-                ? '✈️ Worldwide Express Shipping Available'
-                : '🚚 국내 당일출고 · 해외 EMS/DHL 발송 가능'}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 pt-3 text-[11px] text-zinc-700">
-            <div className="flex items-center gap-2 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200/70">
-              <CreditCard className="w-4 h-4 text-indigo-600 shrink-0" />
-              <span>
-                {isEn
-                  ? `3rd-Party Checkout (${product.payment_provider || 'Stripe/PayPal'})`
-                  : `제3자 온라인 안전결제 (${product.payment_provider || '카드/간편결제'})`}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200/70">
-              <Truck className="w-4 h-4 text-emerald-600 shrink-0" />
-              <span>
-                {isEn
-                  ? 'Free Shipping over $100 USD'
-                  : '5만원 이상 무료배송 · 해외배송 지원'}
-              </span>
-            </div>
-            <div className="flex items-center gap-2 bg-zinc-50 p-2.5 rounded-xl border border-zinc-200/70">
-              <ShieldCheck className="w-4 h-4 text-zinc-900 shrink-0" />
-              <span>
-                {isEn ? '100% Authentic & Buyer Protection' : '공식 검수 완료 · 안전 구매보증'}
-              </span>
-            </div>
-          </div>
-        </div>
-
-        {/* 3. 즉시 옵션 선택 & 제3자 온라인 결제 바로가기 프리뷰 박스 */}
-        <div className="p-5 sm:p-6 bg-emerald-50/40 border-b border-zinc-100 space-y-3">
-          <div className="flex items-center justify-between">
-            <span className="text-xs font-black text-zinc-900">
-              {isEn ? 'Quick Option & Quantity Selection' : '옵션 및 수량 바로 선택'}
-            </span>
-            <span className="text-[11px] font-bold text-emerald-700">
-              {isEn ? 'In Stock · Ready to Ship' : '재고 보유 · 즉시 주문 가능'}
-            </span>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-            <div className="sm:col-span-2">
-              <select
-                value={selectedOption}
-                onChange={(e) => setSelectedOption(e.target.value)}
-                className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 bg-white text-xs font-bold"
-              >
-                {localizedOptions.map((opt) => (
-                  <option key={opt} value={opt}>
-                    {opt}
-                  </option>
-                ))}
-              </select>
-            </div>
-            <div className="flex items-center justify-between bg-white border border-zinc-300 rounded-xl px-3 py-1.5">
-              <span className="text-xs font-bold text-zinc-500">
-                {isEn ? 'Qty' : '수량'}
-              </span>
-              <div className="flex items-center gap-2">
-                <button
-                  type="button"
-                  onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                  className="p-1 hover:bg-zinc-100 rounded-lg"
-                >
-                  <Minus className="w-3.5 h-3.5" />
-                </button>
-                <span className="w-6 text-center text-xs font-black">{quantity}</span>
-                <button
-                  type="button"
-                  onClick={() => setQuantity((q) => q + 1)}
-                  className="p-1 hover:bg-zinc-100 rounded-lg"
-                >
-                  <Plus className="w-3.5 h-3.5" />
-                </button>
-              </div>
-            </div>
-          </div>
-
-          <div className="flex items-center justify-between pt-1 text-xs">
-            <span className="font-bold text-zinc-600">
-              {isEn ? 'Estimated Total (incl. Shipping)' : '예상 결제 금액 (배송비 포함)'}
-            </span>
-            <span className="text-base font-black text-emerald-700">
-              {formatMoney(totalKrw, totalUsd)}
-            </span>
-          </div>
-        </div>
-
-        {/* 4. AI 핵심 요약 및 직접 등록한 상세 스토리 블록 */}
-        <div className="p-5 sm:p-6 space-y-6">
-          {displaySummary && (
-            <div className="p-4 rounded-2xl bg-indigo-50/70 border border-indigo-100 space-y-1.5">
-              <p className="text-xs font-black text-indigo-950 flex items-center gap-1">
-                <Sparkles className="w-3.5 h-3.5 text-indigo-600" />
-                {isEn ? 'Key Highlights Before You Buy' : '구매 전 핵심 체크포인트'}
-              </p>
-              <p className="text-xs text-zinc-700 whitespace-pre-line leading-relaxed">
-                {displaySummary}
-              </p>
-            </div>
-          )}
-
-          {Array.isArray(product.detail_blocks) && product.detail_blocks.length > 0 && (
-            <div className="space-y-5">
-              <div className="flex items-center gap-1.5 border-b border-zinc-200 pb-2">
-                <Camera className="w-4 h-4 text-zinc-900" />
-                <h2 className="text-sm font-black text-zinc-900">
-                  {isEn ? 'Product Visual Story & Details' : '상세 사진 및 제품 특장점'}
-                </h2>
-              </div>
-
-              {product.detail_blocks.map((blk, idx) => (
-                <div
-                  key={blk.id || idx}
-                  className="rounded-2xl border border-zinc-200 overflow-hidden bg-zinc-50/50"
-                >
-                  {blk.image && (
-                    <img
-                      src={blk.image}
-                      alt={isEn ? blk.title_en || blk.title : blk.title}
-                      className="w-full max-h-96 object-cover"
-                    />
-                  )}
-                  <div className="p-4 space-y-1.5">
-                    {(blk.title || blk.title_en) && (
-                      <h3 className="text-sm font-black text-zinc-900">
-                        {isEn ? blk.title_en || blk.title : blk.title}
-                      </h3>
-                    )}
-                    {(blk.content || blk.content_en) && (
-                      <p className="text-xs text-zinc-600 leading-relaxed whitespace-pre-line">
-                        {isEn ? blk.content_en || blk.content : blk.content}
-                      </p>
-                    )}
-                  </div>
-                </div>
-              ))}
-            </div>
-          )}
-
-          {Array.isArray(product.specs) && product.specs.length > 0 && (
-            <div className="space-y-2.5">
-              <div className="flex items-center gap-1.5">
-                <FileText className="w-4 h-4 text-zinc-900" />
-                <h2 className="text-sm font-black text-zinc-900">
-                  {isEn ? 'Technical Specifications' : '제품 상세 스펙 및 규격'}
-                </h2>
-              </div>
-              <div className="rounded-2xl border border-zinc-200 overflow-hidden">
-                {product.specs.map((sp, idx) => (
-                  <div
-                    key={idx}
-                    className={`grid grid-cols-3 text-xs p-3 ${
-                      idx % 2 === 0 ? 'bg-zinc-50' : 'bg-white'
-                    } border-b last:border-b-0 border-zinc-200`}
-                  >
-                    <span className="font-bold text-zinc-600">{sp.label}</span>
-                    <span className="col-span-2 font-semibold text-zinc-900">
-                      {sp.value}
+      {/* 데스크탑 2단, 모바일 1단 최적화 레이아웃 */}
+      <div className="max-w-6xl mx-auto px-4 sm:px-8 py-8 lg:py-12">
+        <div className="flex flex-col lg:flex-row gap-12 lg:gap-20">
+          
+          {/* 좌측: 고정된 대형 이미지 갤러리 */}
+          <div className="w-full lg:w-1/2 flex flex-col gap-4">
+            <div className="lg:sticky lg:top-24 space-y-4">
+              <div className="relative w-full aspect-[4/5] sm:aspect-square lg:aspect-[4/5] bg-zinc-100 rounded-[2rem] overflow-hidden">
+                <img
+                  src={activeImage}
+                  alt={displayTitle}
+                  className="w-full h-full object-cover transition-opacity duration-500"
+                />
+                {displayBadge && (
+                  <div className="absolute top-6 left-6">
+                    <span className="bg-zinc-900 text-white text-[10px] font-black uppercase tracking-widest px-4 py-2 rounded-full shadow-lg">
+                      {displayBadge}
                     </span>
                   </div>
-                ))}
+                )}
+              </div>
+              
+              {gallery.length > 1 && (
+                <div className="flex items-center gap-3 overflow-x-auto no-scrollbar py-2">
+                  {gallery.map((imgUrl, idx) => (
+                    <button
+                      key={idx}
+                      onClick={() => setActiveImage(imgUrl)}
+                      className={`w-20 h-20 shrink-0 rounded-2xl overflow-hidden transition-all ${
+                        activeImage === imgUrl
+                          ? 'border-2 border-zinc-900 opacity-100 scale-105'
+                          : 'border border-zinc-200 opacity-60 hover:opacity-100'
+                      }`}
+                    >
+                      <img src={imgUrl} className="w-full h-full object-cover" alt="" />
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          </div>
+
+          {/* 우측: 스크롤되는 상품 정보 */}
+          <div className="w-full lg:w-1/2 flex flex-col">
+            <div className="space-y-6 pb-10 border-b border-zinc-100">
+              {post?.video_number && (
+                <span className="inline-block text-[11px] font-bold text-zinc-500 tracking-widest uppercase">
+                  Item #{post.video_number}
+                </span>
+              )}
+              <h1 className="text-3xl sm:text-5xl font-black text-zinc-900 tracking-tighter leading-[1.1]">
+                {displayTitle}
+              </h1>
+              <div className="flex items-end gap-3">
+                <span className="text-3xl sm:text-4xl font-black text-zinc-900 tracking-tight">
+                  {formatMoney(unitPriceKrw, unitPriceUsd)}
+                </span>
+              </div>
+              {displayDesc && (
+                <p className="text-base text-zinc-600 leading-relaxed">
+                  {displayDesc}
+                </p>
+              )}
+
+              {/* 신뢰 요소 미니멀 렌더링 */}
+              <div className="flex flex-wrap gap-4 pt-2">
+                <div className="flex items-center gap-2 text-sm text-zinc-600 font-medium">
+                  <ShieldCheck className="w-4 h-4 text-zinc-900" />
+                  {isEn ? '100% Authentic' : '정품 인증'}
+                </div>
+                <div className="flex items-center gap-2 text-sm text-zinc-600 font-medium">
+                  <Truck className="w-4 h-4 text-zinc-900" />
+                  {isEn ? 'Global Shipping' : '해외 배송 지원'}
+                </div>
               </div>
             </div>
-          )}
 
-          <div className="flex flex-wrap gap-2 pt-2">
-            {post?.video_url && (
-              <a
-                href={post.video_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 px-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold flex items-center justify-center gap-1.5"
-              >
-                <Play className="w-3.5 h-3.5 fill-current" />
-                {isEn ? 'Watch Original Short Video' : '원본 숏폼 영상 보기'}
-              </a>
-            )}
-            {product.purchase_url && product.source_type !== 'manual' && (
-              <a
-                href={product.purchase_url}
-                target="_blank"
-                rel="noopener noreferrer"
-                className="flex-1 py-2.5 px-3 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-800 text-xs font-bold flex items-center justify-center gap-1.5"
-              >
-                {isEn ? 'Reference Source Page' : '연동된 원본 웹페이지 보기'}
-                <ExternalLink className="w-3.5 h-3.5" />
-              </a>
-            )}
-          </div>
-        </div>
-      </div>
-
-      {/* 하단 고정(Sticky) 글로벌 구매 & 제3자 결제 바 */}
-      <div className="fixed bottom-0 inset-x-0 z-30 bg-white/95 backdrop-blur-md border-t border-zinc-200 p-3.5 shadow-lg">
-        <div className="max-w-2xl mx-auto flex items-center gap-3">
-          <div className="shrink-0">
-            <span className="block text-[10px] font-bold text-zinc-400">
-              {isEn ? 'Total Price' : '총 주문 금액'}
-            </span>
-            <span className="text-base font-black text-zinc-900">
-              {formatMoney(totalKrw, totalUsd)}
-            </span>
-          </div>
-          <button
-            onClick={() => setIsOrderSheetOpen(true)}
-            className="flex-1 py-3.5 px-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 active:scale-[0.99] text-white text-xs sm:text-sm font-black shadow-md transition-all flex items-center justify-center gap-2"
-          >
-            <CreditCard className="w-4 h-4" />
-            {isEn
-              ? 'Buy Now (3rd-Party Online Checkout)'
-              : '구매하기 (제3자 온라인 결제 폼)'}
-          </button>
-        </div>
-      </div>
-
-      {/* 주문서 작성 & 제3자 온라인 결제 폼 연동 바텀시트 모달 */}
-      {isOrderSheetOpen && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-end sm:items-center justify-center p-0 sm:p-4">
-          <div className="bg-white w-full max-w-lg rounded-t-3xl sm:rounded-3xl max-h-[92vh] overflow-y-auto p-6 shadow-2xl">
-            <div className="flex items-center justify-between pb-3 border-b border-zinc-200">
+            {/* 깔끔한 옵션 선택 영역 */}
+            <div className="py-10 space-y-6 border-b border-zinc-100">
               <div>
-                <h3 className="text-base font-black text-zinc-900">
-                  {isEn ? 'Global Order & Checkout Form' : '주문서 작성 및 온라인 결제'}
-                </h3>
-                <p className="text-[11px] text-zinc-500">
-                  {isEn
-                    ? 'Supports worldwide shipping & 3rd-party online payment gateway'
-                    : '국내 및 해외 배송지 입력 후 제3자 온라인 결제 폼으로 안전하게 결제합니다.'}
-                </p>
+                <label className="block text-sm font-bold text-zinc-900 mb-3">
+                  {isEn ? 'Variant' : '옵션 선택'}
+                </label>
+                <div className="relative">
+                  <select
+                    value={selectedOption}
+                    onChange={(e) => setSelectedOption(e.target.value)}
+                    className="w-full appearance-none px-5 py-4 rounded-2xl bg-zinc-50 border border-zinc-200 text-sm font-bold text-zinc-900 focus:outline-none focus:border-zinc-900 transition-colors cursor-pointer"
+                  >
+                    {localizedOptions.map((opt) => (
+                      <option key={opt} value={opt}>{opt}</option>
+                    ))}
+                  </select>
+                  <div className="absolute right-5 top-1/2 -translate-y-1/2 pointer-events-none text-zinc-400">
+                    <ChevronLeft className="w-4 h-4 -rotate-90" />
+                  </div>
+                </div>
               </div>
+
+              <div>
+                <label className="block text-sm font-bold text-zinc-900 mb-3">
+                  {isEn ? 'Quantity' : '수량'}
+                </label>
+                <div className="inline-flex items-center bg-zinc-50 border border-zinc-200 rounded-2xl p-1.5">
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => Math.max(1, q - 1))}
+                    className="p-3 hover:bg-white rounded-xl transition-colors text-zinc-900"
+                  >
+                    <Minus className="w-4 h-4" />
+                  </button>
+                  <span className="w-12 text-center text-sm font-bold text-zinc-900">{quantity}</span>
+                  <button
+                    type="button"
+                    onClick={() => setQuantity((q) => q + 1)}
+                    className="p-3 hover:bg-white rounded-xl transition-colors text-zinc-900"
+                  >
+                    <Plus className="w-4 h-4" />
+                  </button>
+                </div>
+              </div>
+              
+              {/* 데스크탑에서만 보이는 구매 버튼 (모바일은 플로팅 바) */}
+              <div className="hidden lg:block pt-6">
+                <button
+                  onClick={() => setIsOrderSheetOpen(true)}
+                  className="w-full py-5 rounded-full bg-zinc-900 hover:bg-zinc-800 text-white text-base font-bold transition-all shadow-[0_10px_30px_rgb(0,0,0,0.15)] flex items-center justify-center gap-2 hover:scale-[1.02]"
+                >
+                  <ShoppingBag className="w-5 h-5" />
+                  {isEn ? 'Checkout' : '바로 구매하기'}
+                </button>
+              </div>
+            </div>
+
+            {/* AI 요약 및 상세 에디토리얼 */}
+            <div className="py-10 space-y-12">
+              {displaySummary && (
+                <div className="p-6 rounded-[2rem] bg-zinc-50 space-y-3">
+                  <p className="text-xs font-black uppercase tracking-widest text-zinc-400 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4 text-zinc-900" />
+                    {isEn ? 'Editor’s Note' : '에디터 요약'}
+                  </p>
+                  <p className="text-sm text-zinc-700 whitespace-pre-line leading-loose">
+                    {displaySummary}
+                  </p>
+                </div>
+              )}
+
+              {Array.isArray(product.detail_blocks) && product.detail_blocks.length > 0 && (
+                <div className="space-y-12">
+                  {product.detail_blocks.map((blk, idx) => (
+                    <div key={blk.id || idx} className="space-y-6">
+                      {blk.image && (
+                        <img
+                          src={blk.image}
+                          alt=""
+                          className="w-full rounded-3xl object-cover"
+                        />
+                      )}
+                      <div className="max-w-md space-y-3">
+                        {(blk.title || blk.title_en) && (
+                          <h3 className="text-xl font-bold text-zinc-900 tracking-tight">
+                            {isEn ? blk.title_en || blk.title : blk.title}
+                          </h3>
+                        )}
+                        {(blk.content || blk.content_en) && (
+                          <p className="text-sm text-zinc-500 leading-loose whitespace-pre-line">
+                            {isEn ? blk.content_en || blk.content : blk.content}
+                          </p>
+                        )}
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              )}
+
+              {Array.isArray(product.specs) && product.specs.length > 0 && (
+                <div className="space-y-6">
+                  <h2 className="text-lg font-bold text-zinc-900">
+                    {isEn ? 'Specifications' : '상세 스펙'}
+                  </h2>
+                  <div className="divide-y divide-zinc-100 border-y border-zinc-100">
+                    {product.specs.map((sp, idx) => (
+                      <div key={idx} className="flex py-4">
+                        <span className="w-1/3 text-sm font-medium text-zinc-400">{sp.label}</span>
+                        <span className="w-2/3 text-sm font-medium text-zinc-900">{sp.value}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+
+      {/* 모바일 전용 프리미엄 플로팅 액션 바 (Pill Shape) */}
+      <div className="lg:hidden fixed bottom-6 left-1/2 -translate-x-1/2 w-[calc(100%-32px)] max-w-md bg-zinc-900/95 backdrop-blur-xl p-2 rounded-[2.5rem] flex items-center justify-between shadow-[0_20px_40px_rgba(0,0,0,0.2)] z-40 border border-white/10">
+        <div className="pl-6 py-2 flex flex-col justify-center">
+          <span className="text-[10px] font-bold text-zinc-400 uppercase tracking-wider">
+            {isEn ? 'Total' : '결제 금액'}
+          </span>
+          <span className="text-lg font-black text-white leading-none mt-1">
+            {formatMoney(totalKrw, totalUsd)}
+          </span>
+        </div>
+        <button
+          onClick={() => setIsOrderSheetOpen(true)}
+          className="h-14 px-8 rounded-full bg-white text-zinc-900 text-sm font-black transition-transform active:scale-95 flex items-center gap-2"
+        >
+          {isEn ? 'Checkout' : '결제하기'}
+        </button>
+      </div>
+
+      {/* 주문 모달 (기존 구조 유지하되 스타일만 미니멀하게 다듬음) */}
+      {isOrderSheetOpen && (
+        <div className="fixed inset-0 z-50 bg-black/40 backdrop-blur-sm flex items-end sm:items-center justify-center p-0 sm:p-4">
+          <div className="bg-white w-full max-w-lg rounded-t-[2rem] sm:rounded-[2rem] max-h-[92vh] overflow-y-auto p-6 sm:p-8 shadow-2xl">
+            <div className="flex items-center justify-between pb-6">
+              <h3 className="text-xl font-black text-zinc-900 tracking-tight">
+                {isEn ? 'Checkout' : '주문 및 결제'}
+              </h3>
               <button
                 onClick={() => setIsOrderSheetOpen(false)}
-                className="p-1.5 rounded-xl hover:bg-zinc-100"
+                className="p-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-900 transition-colors"
               >
                 <X className="w-5 h-5" />
               </button>
             </div>
 
-            <form onSubmit={handleOrderFormSubmit} className="space-y-4 mt-4">
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-3">
-                <div>
-                  <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                    {isEn ? 'Select Option' : '상품 옵션 선택'}
-                  </label>
-                  <select
-                    value={selectedOption}
-                    onChange={(e) => setSelectedOption(e.target.value)}
-                    className="w-full px-3 py-2 rounded-xl border border-zinc-300 bg-white text-xs font-bold"
-                  >
-                    {localizedOptions.map((opt) => (
-                      <option key={opt} value={opt}>
-                        {opt}
-                      </option>
-                    ))}
-                  </select>
-                </div>
-
-                <div className="flex items-center justify-between">
-                  <span className="text-xs font-bold text-zinc-700">
-                    {isEn ? 'Quantity' : '주문 수량'}
-                  </span>
-                  <div className="flex items-center gap-2 bg-white border border-zinc-300 rounded-xl p-1">
-                    <button
-                      type="button"
-                      onClick={() => setQuantity((q) => Math.max(1, q - 1))}
-                      className="p-1.5 hover:bg-zinc-100 rounded-lg"
-                    >
-                      <Minus className="w-3.5 h-3.5" />
-                    </button>
-                    <span className="w-6 text-center text-xs font-black">{quantity}</span>
-                    <button
-                      type="button"
-                      onClick={() => setQuantity((q) => q + 1)}
-                      className="p-1.5 hover:bg-zinc-100 rounded-lg"
-                    >
-                      <Plus className="w-3.5 h-3.5" />
-                    </button>
+            <form onSubmit={handleOrderFormSubmit} className="space-y-6">
+              <div className="space-y-4">
+                <h4 className="text-sm font-bold text-zinc-900">{isEn ? 'Order Details' : '주문 내역'}</h4>
+                <div className="p-4 rounded-2xl bg-zinc-50 space-y-3">
+                  <div className="flex justify-between text-sm">
+                    <span className="text-zinc-500">{displayTitle}</span>
+                  </div>
+                  <div className="flex justify-between text-sm font-medium">
+                    <span className="text-zinc-900">{selectedOption} × {quantity}</span>
+                    <span className="text-zinc-900">{formatMoney(unitPriceKrw * quantity, unitPriceUsd * quantity)}</span>
                   </div>
                 </div>
               </div>
 
-              <div className="space-y-2.5">
+              <div className="space-y-4">
                 <div className="flex items-center justify-between">
-                  <p className="text-xs font-black text-zinc-900">
-                    {isEn
-                      ? 'Shipping Information (Worldwide)'
-                      : '배송지 정보 (국내·해외 모두 가능)'}
-                  </p>
-                  <button
-                    type="button"
-                    onClick={onToggleLang}
-                    className="text-[11px] font-bold text-indigo-600 hover:underline"
-                  >
-                    {isEn ? '한국어 입력 전환' : 'Switch to English Form'}
-                  </button>
+                  <h4 className="text-sm font-bold text-zinc-900">
+                    {isEn ? 'Shipping Information' : '배송지 정보'}
+                  </h4>
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
+                <div className="grid grid-cols-2 gap-3">
                   <input
                     type="text"
                     required
                     value={buyerName}
                     onChange={(e) => setBuyerName(e.target.value)}
-                    placeholder={isEn ? 'Full Name *' : '받는 분 성함 *'}
-                    className="px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs"
+                    placeholder={isEn ? 'Full Name *' : '이름 *'}
+                    className="px-4 py-3.5 rounded-xl bg-zinc-50 border-none text-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-zinc-900 transition-shadow"
                   />
                   <input
                     type="tel"
                     required
                     value={buyerPhone}
                     onChange={(e) => setBuyerPhone(e.target.value)}
-                    placeholder={
-                      isEn ? 'Phone (+1-000-0000) *' : '연락처 (010-0000-0000) *'
-                    }
-                    className="px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs"
+                    placeholder={isEn ? 'Phone *' : '연락처 *'}
+                    className="px-4 py-3.5 rounded-xl bg-zinc-50 border-none text-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-zinc-900 transition-shadow"
                   />
                 </div>
-
-                <div className="grid grid-cols-2 gap-2">
-                  <select
-                    value={buyerCountry}
-                    onChange={(e) => setBuyerCountry(e.target.value)}
-                    className="px-3 py-2.5 rounded-xl border border-zinc-300 bg-white text-xs font-bold"
-                  >
-                    <option value="대한민국 (South Korea)">대한민국 (South Korea)</option>
-                    <option value="United States">United States (USA)</option>
-                    <option value="United Kingdom">United Kingdom (UK)</option>
-                    <option value="Japan">Japan (日本)</option>
-                    <option value="Singapore">Singapore</option>
-                    <option value="Australia">Australia</option>
-                    <option value="Canada">Canada</option>
-                    <option value="Germany / EU">Germany / EU</option>
-                    <option value="Other International">Other Country (Global)</option>
-                  </select>
-                  <input
-                    type="email"
-                    value={buyerEmail}
-                    onChange={(e) => setBuyerEmail(e.target.value)}
-                    placeholder={
-                      isEn ? 'Email for Receipt' : '이메일 (영수증·송장 안내용)'
-                    }
-                    className="px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs"
-                  />
-                </div>
-
-                <div className="grid grid-cols-3 gap-2">
-                  <input
-                    type="text"
-                    required
-                    value={shippingAddress}
-                    onChange={(e) => setShippingAddress(e.target.value)}
-                    placeholder={
-                      isEn
-                        ? 'Street Address, City, State *'
-                        : '도로명 주소 및 상세 주소 *'
-                    }
-                    className="col-span-2 px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs"
-                  />
-                  <input
-                    type="text"
-                    value={postalCode}
-                    onChange={(e) => setPostalCode(e.target.value)}
-                    placeholder={isEn ? 'ZIP / Postal' : '우편번호'}
-                    className="px-3 py-2.5 rounded-xl border border-zinc-300 text-xs"
-                  />
-                </div>
-
+                <select
+                  value={buyerCountry}
+                  onChange={(e) => setBuyerCountry(e.target.value)}
+                  className="w-full px-4 py-3.5 rounded-xl bg-zinc-50 border-none text-sm font-medium text-zinc-900 focus:ring-2 focus:ring-zinc-900 cursor-pointer"
+                >
+                  <option value="대한민국 (South Korea)">대한민국 (South Korea)</option>
+                  <option value="United States">United States (USA)</option>
+                  <option value="Japan">Japan (日本)</option>
+                  <option value="Other International">Other Country (Global)</option>
+                </select>
                 <input
                   type="text"
-                  value={deliveryMemo}
-                  onChange={(e) => setDeliveryMemo(e.target.value)}
-                  placeholder={
-                    isEn
-                      ? 'Delivery Notes / Customs ID (Optional)'
-                      : '배송 요청사항 (문 앞 보관 등)'
-                  }
-                  className="w-full px-3.5 py-2.5 rounded-xl border border-zinc-300 text-xs"
+                  required
+                  value={shippingAddress}
+                  onChange={(e) => setShippingAddress(e.target.value)}
+                  placeholder={isEn ? 'Address *' : '상세 주소 *'}
+                  className="w-full px-4 py-3.5 rounded-xl bg-zinc-50 border-none text-sm placeholder:text-zinc-400 focus:ring-2 focus:ring-zinc-900"
                 />
               </div>
 
-              <div className="space-y-2">
-                <p className="text-xs font-black text-zinc-900">
-                  {isEn
-                    ? 'Payment Method (3rd-Party Gateway)'
-                    : '결제 방식 (제3자 온라인 결제 폼 연동)'}
-                </p>
-                <div className="grid grid-cols-1 sm:grid-cols-3 gap-2">
+              <div className="space-y-4">
+                <h4 className="text-sm font-bold text-zinc-900">
+                  {isEn ? 'Payment Method' : '결제 수단'}
+                </h4>
+                <div className="grid grid-cols-1 sm:grid-cols-3 gap-3">
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('third_party_form')}
-                    className={`p-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 ${
+                    className={`py-3.5 px-4 rounded-xl text-xs font-bold border transition-all ${
                       paymentMethod === 'third_party_form'
-                        ? 'border-indigo-600 bg-indigo-600 text-white shadow-xs'
-                        : 'border-zinc-300 bg-white text-zinc-700'
+                        ? 'border-zinc-900 bg-zinc-900 text-white'
+                        : 'border-zinc-200 bg-white text-zinc-600'
                     }`}
                   >
-                    <CreditCard className="w-4 h-4" />
-                    {isEn ? '3rd-Party Payment Form' : '제3자 온라인 결제폼'}
+                    {isEn ? 'Credit Card' : '온라인 결제'}
                   </button>
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('global_card')}
-                    className={`p-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 ${
+                    className={`py-3.5 px-4 rounded-xl text-xs font-bold border transition-all ${
                       paymentMethod === 'global_card'
-                        ? 'border-emerald-600 bg-emerald-600 text-white shadow-xs'
-                        : 'border-zinc-300 bg-white text-zinc-700'
+                        ? 'border-zinc-900 bg-zinc-900 text-white'
+                        : 'border-zinc-200 bg-white text-zinc-600'
                     }`}
                   >
-                    <Globe className="w-4 h-4" />
-                    {isEn ? 'PayPal / Global Card' : '해외카드 / PayPal'}
+                    PayPal
                   </button>
                   <button
                     type="button"
                     onClick={() => setPaymentMethod('bank_transfer')}
-                    className={`p-3 rounded-xl border text-xs font-extrabold flex items-center justify-center gap-1.5 ${
+                    className={`py-3.5 px-4 rounded-xl text-xs font-bold border transition-all ${
                       paymentMethod === 'bank_transfer'
-                        ? 'border-zinc-900 bg-zinc-900 text-white shadow-xs'
-                        : 'border-zinc-300 bg-white text-zinc-700'
+                        ? 'border-zinc-900 bg-zinc-900 text-white'
+                        : 'border-zinc-200 bg-white text-zinc-600'
                     }`}
                   >
                     {isEn ? 'Wire Transfer' : '무통장 입금'}
@@ -1555,122 +1262,63 @@ function DirectShopView({
                 </div>
               </div>
 
-              <div className="p-3.5 rounded-2xl bg-emerald-50/70 border border-emerald-200 text-xs space-y-1">
-                <div className="flex justify-between text-zinc-600">
-                  <span>
-                    {isEn ? `Subtotal (${quantity} items)` : `상품 금액 (${quantity}개)`}
-                  </span>
-                  <span>
-                    {formatMoney(unitPriceKrw * quantity, unitPriceUsd * quantity)}
-                  </span>
+              <div className="pt-6 border-t border-zinc-100 flex justify-between items-center">
+                <div>
+                  <span className="block text-xs font-bold text-zinc-400 uppercase tracking-wider">{isEn ? 'Total' : '최종 결제 금액'}</span>
+                  <span className="text-2xl font-black text-zinc-900 tracking-tight">{formatMoney(totalKrw, totalUsd)}</span>
                 </div>
-                <div className="flex justify-between text-zinc-600">
-                  <span>{isEn ? 'Shipping Fee' : '배송비'}</span>
-                  <span>
-                    {(isEn ? deliveryFeeUsd : deliveryFeeKrw) === 0
-                      ? isEn
-                        ? 'FREE'
-                        : '무료'
-                      : formatMoney(deliveryFeeKrw, deliveryFeeUsd)}
-                  </span>
-                </div>
-                <div className="flex justify-between pt-1.5 border-t border-emerald-200 font-black text-sm text-emerald-950">
-                  <span>{isEn ? 'Total Due' : '최종 결제 금액'}</span>
-                  <span>{formatMoney(totalKrw, totalUsd)}</span>
-                </div>
+                <button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="px-8 py-4 rounded-full bg-zinc-900 text-white text-sm font-bold shadow-lg disabled:opacity-50 transition-opacity"
+                >
+                  {isSubmitting ? '...' : (isEn ? 'Pay Now' : '결제 진행하기')}
+                </button>
               </div>
-
-              <button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full py-4 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-sm font-black shadow-lg flex items-center justify-center gap-2"
-              >
-                <Lock className="w-4 h-4" />
-                {isSubmitting
-                  ? isEn
-                    ? 'Processing...'
-                    : '주문 처리 중...'
-                  : isEn
-                  ? `Proceed to Payment Form (${formatMoney(totalKrw, totalUsd)})`
-                  : `${formatMoney(totalKrw, totalUsd)} 제3자 온라인 결제창 열기`}
-              </button>
             </form>
           </div>
         </div>
       )}
 
-      {/* 제3자 온라인 결제 폼 임베드/브릿지 모달 */}
+      {/* 결제 브릿지 모달 */}
       {isThirdPartyModalOpen && (
-        <div className="fixed inset-0 z-50 bg-black/75 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-md w-full overflow-hidden shadow-2xl border border-zinc-200">
-            <div className="bg-indigo-600 text-white p-4 flex items-center justify-between">
-              <div className="flex items-center gap-2">
-                <Lock className="w-4 h-4" />
-                <span className="text-xs font-black">
-                  {product.payment_provider || '3rd-Party Secure Checkout Form'}
-                </span>
-              </div>
-              <button
-                onClick={() => setIsThirdPartyModalOpen(false)}
-                className="p-1 rounded-lg hover:bg-white/20"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
-
-            <div className="p-5 space-y-4">
-              <div className="p-3.5 rounded-2xl bg-zinc-50 border border-zinc-200 space-y-1 text-xs">
-                <p className="font-bold text-zinc-500">
-                  {isEn ? 'Order Summary' : '결제 대상 상품'}
-                </p>
-                <p className="text-sm font-black text-zinc-900">
-                  {displayTitle} ({selectedOption} × {quantity})
-                </p>
-                <p className="text-base font-black text-indigo-600 pt-1">
-                  {formatMoney(totalKrw, totalUsd)}
-                </p>
-              </div>
-
-              {activeThirdPartyUrl && (
-                <div className="p-3.5 rounded-2xl bg-indigo-50 border border-indigo-200 space-y-2">
-                  <p className="text-xs font-extrabold text-indigo-950">
-                    {isEn
-                      ? '🔗 External 3rd-Party Payment Link Connected'
-                      : '🔗 연동된 제3자 온라인 결제 폼 주소'}
-                  </p>
-                  <p className="text-[11px] text-indigo-700 break-all font-mono bg-white p-2 rounded-lg border border-indigo-100">
-                    {activeThirdPartyUrl}
-                  </p>
-                  <a
-                    href={activeThirdPartyUrl}
-                    target="_blank"
-                    rel="noopener noreferrer"
-                    className="w-full py-2.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-extrabold flex items-center justify-center gap-1.5 shadow-xs"
-                  >
-                    {isEn ? 'Open Payment Form in New Tab' : '새 창에서 제3자 결제 폼 열기'}
-                    <ExternalLink className="w-3.5 h-3.5" />
-                  </a>
-                </div>
-              )}
-
-              <div className="space-y-2.5 pt-1">
-                <p className="text-[11px] font-bold text-zinc-500">
-                  {isEn
-                    ? 'After completing payment in the 3rd-party form (or to test instant checkout), click below to record your order:'
-                    : '제3자 온라인 결제 폼에서 결제를 마쳤거나 테스트 주문을 완료하려면 아래 버튼을 눌러주세요.'}
-                </p>
-                <button
-                  type="button"
-                  disabled={isSubmitting}
-                  onClick={() => finalizeOrderSubmission('paid')}
-                  className="w-full py-3.5 rounded-2xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-black shadow-md"
+        <div className="fixed inset-0 z-50 bg-zinc-900/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2rem] max-w-sm w-full p-8 text-center space-y-6 shadow-2xl">
+             <div className="w-16 h-16 bg-zinc-100 rounded-full flex items-center justify-center mx-auto">
+               <Lock className="w-6 h-6 text-zinc-900" />
+             </div>
+             <div>
+               <h3 className="text-lg font-black tracking-tight text-zinc-900 mb-2">
+                 {isEn ? 'Secure Checkout' : '안전 결제 이동'}
+               </h3>
+               <p className="text-sm text-zinc-500">
+                 {isEn ? 'You will be redirected to the secure payment gateway.' : '공식 결제 대행사 페이지로 이동합니다.'}
+               </p>
+             </div>
+             
+             {activeThirdPartyUrl && (
+                <a
+                  href={activeThirdPartyUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="block w-full py-4 rounded-full bg-zinc-900 text-white text-sm font-bold shadow-lg"
                 >
-                  {isEn
-                    ? '✅ Confirm Payment & Complete Order'
-                    : '✅ 제3자 결제 폼 결제 완료 및 주문 접수하기'}
+                  {isEn ? 'Continue to Payment' : '결제창 열기'}
+                </a>
+             )}
+
+             <div className="pt-4 border-t border-zinc-100">
+               <button
+                  onClick={() => finalizeOrderSubmission('paid')}
+                  className="text-xs font-bold text-zinc-400 hover:text-zinc-900 underline underline-offset-4 transition-colors"
+                >
+                  {isEn ? 'I have completed the payment' : '결제를 완료했습니다'}
                 </button>
-              </div>
-            </div>
+             </div>
+             
+             <button onClick={() => setIsThirdPartyModalOpen(false)} className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-zinc-900">
+               <X className="w-5 h-5"/>
+             </button>
           </div>
         </div>
       )}
@@ -1716,81 +1364,68 @@ function AdminDashboard({
   );
 
   return (
-    <main className="max-w-5xl mx-auto px-4 pt-6 space-y-6">
-      <div className="bg-zinc-900 text-white rounded-3xl p-6 flex flex-col sm:flex-row sm:items-center justify-between gap-4 shadow-md">
-        <div>
-          <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full bg-amber-400/20 text-amber-300 text-xs font-bold mb-2">
-            <ShieldCheck className="w-3.5 h-3.5" /> 글로벌 커머스 관리자 센터 (KR / EN)
+    <main className="max-w-5xl mx-auto px-4 pt-8 pb-20 space-y-8">
+      <div className="bg-zinc-900 text-white rounded-3xl p-8 flex flex-col md:flex-row md:items-end justify-between gap-6 shadow-xl">
+        <div className="max-w-xl">
+          <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-white/10 text-white text-[11px] font-bold tracking-widest uppercase mb-4">
+            <ShieldCheck className="w-3.5 h-3.5" /> Workspace
           </div>
-          <h1 className="text-xl font-black">독립 판매 페이지 · 제3자 결제 통합 관리</h1>
-          <p className="text-xs text-zinc-400 mt-1">
-            ① 홈페이지 연동 ② 온라인 플랫폼 연동 ③ 무홈페이지 직접 사진 업로드 상품 및 국내외(KRW/USD) 주문을 관리합니다.
+          <h1 className="text-3xl font-black tracking-tight leading-tight">
+            Store Management
+          </h1>
+          <p className="text-sm text-zinc-400 mt-2 leading-relaxed">
+            Manage your standalone products, orders, and payment gateways seamlessly.
           </p>
         </div>
 
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-3 shrink-0">
           <button
             onClick={onOpenNewProduct}
-            className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-black shadow"
+            className="px-5 py-3 rounded-full bg-white text-zinc-900 text-sm font-bold shadow hover:scale-105 transition-transform"
           >
-            <Plus className="w-4 h-4 stroke-[2.5]" /> 새 상품 / 직접 사진 등록
+            + New Product
           </button>
           <button
             onClick={onLockAdmin}
-            className="inline-flex items-center gap-1.5 px-4 py-3 rounded-2xl bg-zinc-800 hover:bg-zinc-700 text-white text-xs font-bold"
+            className="p-3 rounded-full bg-white/10 hover:bg-white/20 text-white transition-colors"
           >
-            <Lock className="w-4 h-4" /> 잠금
+            <Lock className="w-5 h-5" />
           </button>
         </div>
       </div>
 
-      <div className="grid grid-cols-2 sm:grid-cols-4 gap-3.5">
-        <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-500">
-            <ShoppingBag className="w-4 h-4 text-emerald-600" /> 누적 주문 건수
+      {/* 미니멀 통계 카드 */}
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+        {[
+          { label: 'Total Orders', value: orders.length, icon: ShoppingBag },
+          { label: 'Active Products', value: products.length, icon: Package },
+          { label: 'Total Views', value: totalClicks.toLocaleString(), icon: MousePointerClick },
+          { label: 'Revenue (KRW)', value: `₩${totalSalesAmount.toLocaleString()}`, icon: Database },
+        ].map((stat, i) => (
+          <div key={i} className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm flex flex-col justify-between aspect-[4/3]">
+            <stat.icon className="w-5 h-5 text-zinc-400" />
+            <div>
+              <p className="text-2xl sm:text-3xl font-black text-zinc-900 tracking-tight mt-4">{stat.value}</p>
+              <p className="text-[11px] font-bold text-zinc-400 uppercase tracking-widest mt-1">{stat.label}</p>
+            </div>
           </div>
-          <p className="text-2xl font-black text-emerald-600 mt-1.5">{orders.length}건</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-500">
-            <Package className="w-4 h-4 text-zinc-900" /> 독립 판매 상품 수
-          </div>
-          <p className="text-2xl font-black mt-1.5">{products.length}개</p>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-500">
-            <MousePointerClick className="w-4 h-4 text-blue-600" /> 누적 페이지 조회
-          </div>
-          <p className="text-2xl font-black text-blue-600 mt-1.5">
-            {totalClicks.toLocaleString()}회
-          </p>
-        </div>
-
-        <div className="bg-white p-4 rounded-2xl border border-zinc-200 shadow-sm">
-          <div className="flex items-center gap-1.5 text-xs font-bold text-zinc-500">
-            <Database className="w-4 h-4 text-indigo-600" /> 누적 주문액 (KRW 환산)
-          </div>
-          <p className="text-xl font-black text-zinc-900 mt-2">
-            {totalSalesAmount.toLocaleString()}원
-          </p>
-        </div>
+        ))}
       </div>
 
-      <div className="flex flex-wrap gap-2 border-b border-zinc-200 pb-3">
+      {/* 깔끔한 탭 */}
+      <div className="flex gap-2 overflow-x-auto no-scrollbar border-b border-zinc-200 pb-px">
         {[
-          { id: 'orders', label: `📦 국내·해외 주문 내역 (${orders.length})` },
-          { id: 'products', label: `🏷️ 독립 판매페이지 & 상품 관리 (${products.length})` },
-          { id: 'settings', label: '⚙️ 제3자 결제 폼 · DB · 계좌 설정' },
+          { id: 'orders', label: `Orders (${orders.length})` },
+          { id: 'products', label: `Products (${products.length})` },
+          { id: 'settings', label: 'Settings' },
         ].map((tab) => (
           <button
             key={tab.id}
             onClick={() => setAdminSubTab(tab.id)}
-            className={`px-4 py-2 rounded-xl text-xs font-extrabold transition-all ${
+            className={`px-6 py-3 text-sm font-bold border-b-2 transition-colors whitespace-nowrap ${
               adminSubTab === tab.id
-                ? 'bg-zinc-900 text-white shadow-sm'
-                : 'bg-white border border-zinc-200 text-zinc-600 hover:bg-zinc-100'
+                ? 'border-zinc-900 text-zinc-900'
+                : 'border-transparent text-zinc-400 hover:text-zinc-600'
             }`}
           >
             {tab.label}
@@ -1798,310 +1433,99 @@ function AdminDashboard({
         ))}
       </div>
 
-      {adminSubTab === 'orders' && (
-        <section className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-sm space-y-4">
-          <div className="flex items-center justify-between">
-            <h2 className="text-base font-extrabold">실시간 국내·해외 고객 주문 접수 목록</h2>
-            {dbConnected && (
-              <button
-                onClick={onSyncSupabase}
-                className="inline-flex items-center gap-1 text-xs font-bold text-emerald-700 bg-emerald-50 px-3 py-1.5 rounded-xl"
-              >
-                <RefreshCw className={`w-3.5 h-3.5 ${isSyncingDb ? 'animate-spin' : ''}`} />
-                주문 새로고침
-              </button>
-            )}
-          </div>
-
-          {orders.length === 0 ? (
-            <div className="text-center py-12 text-xs text-zinc-400">
-              아직 접수된 주문 내역이 없습니다.
-            </div>
-          ) : (
-            <div className="space-y-3">
-              {orders.map((order) => (
-                <div
-                  key={order.id || order.order_number}
-                  className="p-4 rounded-2xl border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                >
-                  <div className="space-y-1">
-                    <div className="flex flex-wrap items-center gap-2">
-                      <span className="text-xs font-black text-emerald-700 bg-emerald-50 px-2 py-0.5 rounded-md">
+      {/* 탭 내용들 (스타일 정리) */}
+      <div className="pt-4">
+        {adminSubTab === 'orders' && (
+          <div className="space-y-4">
+            {orders.length === 0 ? (
+              <div className="py-20 text-center text-sm font-medium text-zinc-400 bg-white rounded-3xl border border-zinc-100">
+                No orders yet.
+              </div>
+            ) : (
+              orders.map((order) => (
+                <div key={order.id || order.order_number} className="p-6 bg-white rounded-3xl border border-zinc-100 shadow-sm flex flex-col md:flex-row md:items-center justify-between gap-6">
+                  <div className="space-y-2">
+                    <div className="flex items-center gap-2">
+                      <span className="text-[10px] font-black uppercase tracking-widest bg-zinc-100 text-zinc-900 px-2 py-1 rounded">
                         {order.order_number}
                       </span>
-                      <span className="text-[11px] font-bold text-indigo-700 bg-indigo-50 px-2 py-0.5 rounded-md">
-                        {order.currency === 'USD'
-                          ? '🌐 해외주문 (EN/USD)'
-                          : '🇰🇷 국내주문 (KRW)'}
-                      </span>
-                      <span className="text-[11px] font-bold text-zinc-500">
-                        결제: {order.payment_provider || order.payment_method}
+                      <span className="text-[10px] font-black uppercase tracking-widest text-zinc-400">
+                        {order.payment_method}
                       </span>
                     </div>
-                    <p className="text-sm font-extrabold text-zinc-900">
-                      {order.product_name} ({order.selected_option} / {order.quantity}개)
+                    <p className="text-base font-bold text-zinc-900">
+                      {order.product_name}
                     </p>
-                    <p className="text-xs text-zinc-600">
-                      받는분: <strong>{order.buyer_name}</strong> ({order.buyer_phone}) |{' '}
-                      {order.buyer_country ? `[${order.buyer_country}] ` : ''}
-                      {order.shipping_address}
+                    <p className="text-sm text-zinc-500">
+                      {order.buyer_name} • {order.shipping_address}
                     </p>
-                    {order.delivery_memo && (
-                      <p className="text-[11px] text-zinc-400">메모: {order.delivery_memo}</p>
-                    )}
                   </div>
-
-                  <div className="flex items-center justify-between sm:justify-end gap-3 shrink-0 border-t sm:border-t-0 pt-2 sm:pt-0 border-zinc-100">
-                    <div className="text-right">
-                      <span className="block text-sm font-black text-zinc-900">
-                        {order.currency === 'USD' && order.total_price_usd
-                          ? `$${Number(order.total_price_usd).toLocaleString()} USD`
-                          : `${Number(order.total_price).toLocaleString()}원`}
-                      </span>
-                    </div>
-                    <select
-                      value={order.order_status || 'pending_payment'}
-                      onChange={(e) => onUpdateOrderStatus(order, e.target.value)}
-                      className={`px-3 py-1.5 rounded-xl text-xs font-extrabold border ${
-                        order.order_status === 'shipped'
-                          ? 'bg-blue-50 text-blue-700 border-blue-200'
-                          : order.order_status === 'paid'
-                          ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
-                          : 'bg-amber-50 text-amber-800 border-amber-200'
-                      }`}
-                    >
-                      <option value="pending_payment">결제 확인중</option>
-                      <option value="paid">결제 완료 (출고대기)</option>
-                      <option value="shipped">국내/해외 발송완료</option>
-                    </select>
+                  <div className="flex flex-row md:flex-col items-center md:items-end justify-between gap-4 border-t md:border-t-0 pt-4 md:pt-0 border-zinc-100">
+                     <span className="text-lg font-black text-zinc-900">
+                        {order.currency === 'USD' ? `$${Number(order.total_price_usd).toLocaleString()}` : `₩${Number(order.total_price).toLocaleString()}`}
+                     </span>
+                     <select
+                        value={order.order_status || 'pending_payment'}
+                        onChange={(e) => onUpdateOrderStatus(order, e.target.value)}
+                        className="px-4 py-2 rounded-full bg-zinc-50 border border-zinc-200 text-xs font-bold text-zinc-900 cursor-pointer focus:outline-none"
+                      >
+                        <option value="pending_payment">Pending</option>
+                        <option value="paid">Paid (Ready)</option>
+                        <option value="shipped">Shipped</option>
+                      </select>
                   </div>
                 </div>
-              ))}
-            </div>
-          )}
-        </section>
-      )}
-
-      {adminSubTab === 'products' && (
-        <section className="bg-white rounded-2xl border border-zinc-200 p-5 shadow-sm space-y-3">
-          <div className="flex items-center justify-between mb-2">
-            <h2 className="text-base font-extrabold flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-zinc-900" />
-              등록 상품 및 독립 판매페이지 목록
-            </h2>
-            <button
-              onClick={onOpenNewProduct}
-              className="text-xs font-bold text-emerald-700 hover:underline"
-            >
-              + 새 상품 등록 (홈페이지/플랫폼/직접업로드)
-            </button>
+              ))
+            )}
           </div>
+        )}
 
-          {[...products]
-            .sort((a, b) => (b.click_count || 0) - (a.click_count || 0))
-            .map((item) => {
-              const post = item.shortform_posts;
-              const srcBadge =
-                item.source_type === 'manual'
-                  ? '📸 직접 사진·내용 업로드'
-                  : item.source_type === 'homepage'
-                  ? '🌐 홈페이지 연동'
-                  : '🛒 온라인 플랫폼 연동';
-              return (
-                <div
-                  key={item.id}
-                  className="p-3.5 rounded-2xl border border-zinc-200 flex flex-col sm:flex-row sm:items-center justify-between gap-3"
-                >
-                  <div className="flex items-center gap-3 min-w-0">
-                    <img
-                      src={
-                        item.image_url ||
-                        'https://images.unsplash.com/photo-1523275335684-37898b6baf30?w=200&q=80'
-                      }
-                      alt={item.name}
-                      className="w-12 h-12 rounded-xl object-cover border border-zinc-200 shrink-0"
-                    />
-                    <div className="min-w-0">
-                      <div className="flex flex-wrap items-center gap-1.5 mb-0.5">
-                        <span className="px-2 py-0.5 bg-zinc-900 text-white rounded text-[11px] font-black">
-                          #{post?.video_number || '-'}번
-                        </span>
-                        <span className="px-2 py-0.5 bg-emerald-100 text-emerald-800 rounded text-[10px] font-bold">
-                          {srcBadge}
-                        </span>
-                        {item.name_en && (
-                          <span className="px-2 py-0.5 bg-indigo-50 text-indigo-700 rounded text-[10px] font-bold">
-                            EN 영문지원
-                          </span>
-                        )}
-                      </div>
-                      <p className="text-sm font-extrabold text-zinc-900 truncate">
-                        {item.name}
-                      </p>
-                      {item.name_en && (
-                        <p className="text-[11px] text-zinc-400 truncate">
-                          {item.name_en}
-                        </p>
-                      )}
-                    </div>
-                  </div>
-
-                  <div className="flex items-center gap-2 shrink-0">
-                    <button
-                      onClick={() => onOpenDirectShop(item)}
-                      className="px-3 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold inline-flex items-center gap-1"
-                    >
-                      판매페이지 열기 <ExternalLink className="w-3.5 h-3.5" />
-                    </button>
-                    <button
-                      onClick={() => onEditProduct(item)}
-                      className="p-2.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700"
-                      title="상품 수정"
-                    >
-                      <Edit3 className="w-4 h-4" />
-                    </button>
-                    <button
-                      onClick={() => onDeleteProduct(item)}
-                      className="p-2.5 rounded-xl bg-red-50 hover:bg-red-100 text-red-600"
-                      title="상품 삭제"
-                    >
-                      <Trash2 className="w-4 h-4" />
-                    </button>
-                  </div>
-                </div>
-              );
-            })}
-        </section>
-      )}
-
-      {adminSubTab === 'settings' && (
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-          <div className="space-y-4">
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                onSaveThirdPartyDefaultUrl(paymentUrlInput);
-              }}
-              className="bg-white rounded-2xl border border-zinc-200 p-5 space-y-2.5 shadow-sm"
-            >
-              <h2 className="text-sm font-extrabold flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4 text-indigo-600" />
-                기본 제3자 온라인 결제 폼 URL (Stripe / PayPal / 포트원 등)
-              </h2>
-              <p className="text-[11px] text-zinc-500">
-                개별 상품에 별도 결제 링크가 없을 때 공통으로 연결할 제3자 온라인 결제 폼 주소입니다.
-              </p>
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  value={paymentUrlInput}
-                  onChange={(e) => setPaymentUrlInput(e.target.value)}
-                  placeholder="https://buy.stripe.com/... 또는 https://paypal.me/..."
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-xs font-bold shrink-0"
-                >
-                  저장
-                </button>
+        {adminSubTab === 'products' && (
+          <div className="grid grid-cols-1 gap-4">
+            {products.map((item) => (
+              <div key={item.id} className="p-4 bg-white rounded-3xl border border-zinc-100 shadow-sm flex items-center gap-4">
+                 <img src={item.image_url} alt="" className="w-16 h-16 rounded-2xl object-cover bg-zinc-50 shrink-0"/>
+                 <div className="flex-1 min-w-0">
+                    <p className="text-sm font-bold text-zinc-900 truncate">{item.name}</p>
+                    <p className="text-xs text-zinc-500 truncate mt-0.5">#{item.shortform_posts?.video_number} • Views: {item.click_count || 0}</p>
+                 </div>
+                 <div className="flex items-center gap-1 shrink-0">
+                    <button onClick={() => onOpenDirectShop(item)} className="p-2.5 text-zinc-400 hover:text-zinc-900 transition-colors bg-zinc-50 rounded-full"><ExternalLink className="w-4 h-4"/></button>
+                    <button onClick={() => onEditProduct(item)} className="p-2.5 text-zinc-400 hover:text-zinc-900 transition-colors bg-zinc-50 rounded-full"><Edit3 className="w-4 h-4"/></button>
+                    <button onClick={() => onDeleteProduct(item)} className="p-2.5 text-zinc-400 hover:text-red-600 transition-colors bg-zinc-50 rounded-full"><Trash2 className="w-4 h-4"/></button>
+                 </div>
               </div>
+            ))}
+          </div>
+        )}
+
+        {adminSubTab === 'settings' && (
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            {/* 설정 폼들 스타일 미니멀하게 정리 */}
+            <form onSubmit={(e) => { e.preventDefault(); onSaveThirdPartyDefaultUrl(paymentUrlInput); }} className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
+               <h3 className="text-sm font-bold text-zinc-900">Default Payment URL</h3>
+               <input type="url" value={paymentUrlInput} onChange={(e) => setPaymentUrlInput(e.target.value)} className="w-full p-4 rounded-xl bg-zinc-50 border-none text-sm focus:ring-2 focus:ring-zinc-900"/>
+               <button type="submit" className="px-6 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold">Save</button>
             </form>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                onSaveBankAccount(bankInput);
-              }}
-              className="bg-white rounded-2xl border border-zinc-200 p-5 space-y-2.5 shadow-sm"
-            >
-              <h2 className="text-sm font-extrabold flex items-center gap-1.5">
-                <Building2 className="w-4 h-4 text-zinc-900" />
-                보조 무통장 입금 계좌 안내 문구
-              </h2>
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={bankInput}
-                  onChange={(e) => setBankInput(e.target.value)}
-                  placeholder="예: 카카오뱅크 3333-00-0000000 (예금주: 숏픽스토어)"
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-bold shrink-0"
-                >
-                  저장
-                </button>
-              </div>
+            <form onSubmit={(e) => { e.preventDefault(); onSaveBankAccount(bankInput); }} className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
+               <h3 className="text-sm font-bold text-zinc-900">Bank Transfer Info</h3>
+               <input type="text" value={bankInput} onChange={(e) => setBankInput(e.target.value)} className="w-full p-4 rounded-xl bg-zinc-50 border-none text-sm focus:ring-2 focus:ring-zinc-900"/>
+               <button type="submit" className="px-6 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold">Save</button>
+            </form>
+            <form onSubmit={onConnectSupabase} className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
+               <h3 className="text-sm font-bold text-zinc-900 flex justify-between">Supabase DB <span className={dbConnected ? "text-emerald-500" : "text-zinc-400"}>●</span></h3>
+               <input type="url" value={sbUrl} onChange={(e) => setSbUrl(e.target.value)} placeholder="URL" className="w-full p-4 rounded-xl bg-zinc-50 border-none text-sm focus:ring-2 focus:ring-zinc-900"/>
+               <input type="password" value={sbKey} onChange={(e) => setSbKey(e.target.value)} placeholder="Key" className="w-full p-4 rounded-xl bg-zinc-50 border-none text-sm focus:ring-2 focus:ring-zinc-900"/>
+               <button type="submit" className="px-6 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold">Connect</button>
+            </form>
+            <form onSubmit={(e) => { e.preventDefault(); onChangePin(newPinInput); setNewPinInput(''); }} className="bg-white p-6 rounded-3xl border border-zinc-100 shadow-sm space-y-4">
+               <h3 className="text-sm font-bold text-zinc-900">Change Admin PIN</h3>
+               <input type="password" value={newPinInput} onChange={(e) => setNewPinInput(e.target.value)} placeholder="New PIN" className="w-full p-4 rounded-xl bg-zinc-50 border-none text-sm focus:ring-2 focus:ring-zinc-900"/>
+               <button type="submit" className="px-6 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold">Update</button>
             </form>
           </div>
-
-          <div className="space-y-4">
-            <form
-              onSubmit={onConnectSupabase}
-              className="bg-white rounded-2xl border border-zinc-200 p-5 space-y-3 shadow-sm"
-            >
-              <h2 className="text-sm font-extrabold flex items-center gap-1.5">
-                <Database className="w-4 h-4 text-emerald-600" />
-                Supabase 실시간 데이터베이스 연결
-              </h2>
-              <p className="text-[11px] text-zinc-500">
-                상태: {dbConnected ? '● 실시간 연결됨' : '● 로컬 브라우저 저장 모드'}
-              </p>
-              <input
-                type="url"
-                value={sbUrl}
-                onChange={(e) => setSbUrl(e.target.value)}
-                placeholder="https://프로젝트ID.supabase.co"
-                className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-              />
-              <input
-                type="password"
-                value={sbKey}
-                onChange={(e) => setSbKey(e.target.value)}
-                placeholder="Supabase anon public 키"
-                className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-              />
-              <button
-                type="submit"
-                className="px-4 py-2 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold"
-              >
-                DB 연결 및 동기화
-              </button>
-            </form>
-
-            <form
-              onSubmit={(e) => {
-                e.preventDefault();
-                onChangePin(newPinInput);
-                setNewPinInput('');
-              }}
-              className="bg-white rounded-2xl border border-zinc-200 p-5 space-y-2.5 shadow-sm"
-            >
-              <h2 className="text-sm font-extrabold flex items-center gap-1.5">
-                <KeyRound className="w-4 h-4 text-zinc-900" />
-                관리자 PIN 비밀번호 변경 (현재: {adminPin})
-              </h2>
-              <div className="flex gap-2">
-                <input
-                  type="password"
-                  value={newPinInput}
-                  onChange={(e) => setNewPinInput(e.target.value)}
-                  placeholder="새 비밀번호 (4자리 이상)"
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-                />
-                <button
-                  type="submit"
-                  className="px-4 py-2 rounded-xl bg-zinc-900 text-white text-xs font-bold shrink-0"
-                >
-                  변경
-                </button>
-              </div>
-            </form>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </main>
   );
 }
@@ -2470,621 +1894,85 @@ function ProductFormModal({
   };
 
   return (
-    <div className="fixed inset-0 z-50 bg-black/65 backdrop-blur-xs flex items-center justify-center p-3 sm:p-4 overflow-y-auto">
-      <div className="bg-white rounded-3xl max-w-3xl w-full max-h-[92vh] overflow-y-auto p-5 sm:p-6 shadow-2xl border border-zinc-200 my-auto">
-        <div className="flex items-center justify-between pb-4 border-b border-zinc-200">
+    <div className="fixed inset-0 z-50 bg-zinc-900/60 backdrop-blur-md flex items-center justify-center p-4 overflow-y-auto">
+      <div className="bg-white rounded-[2rem] max-w-4xl w-full max-h-[90vh] overflow-y-auto p-6 sm:p-10 shadow-2xl my-auto no-scrollbar">
+        <div className="flex items-center justify-between pb-6 mb-6 border-b border-zinc-100">
           <div>
-            <span className="inline-flex items-center gap-1 px-2.5 py-0.5 rounded-full bg-emerald-100 text-emerald-800 text-[11px] font-black mb-1">
-              KR / EN 글로벌 독립 판매 페이지 빌더 (관리자 전용)
-            </span>
-            <h2 className="text-lg font-black text-zinc-900">
-              {editingItem
-                ? '상품 및 독립 판매페이지 수정'
-                : '새 상품 & 독립 판매페이지 만들기'}
+            <h2 className="text-2xl font-black text-zinc-900 tracking-tight">
+              {editingItem ? 'Edit Product' : 'Add New Product'}
             </h2>
-            <p className="text-xs text-zinc-500 mt-0.5">
-              ① 홈페이지 연동 ② 온라인 플랫폼 연동 ③ 홈페이지 없이 직접 사진·내용 업로드 중 선택하세요.
-            </p>
           </div>
-          <button
-            onClick={onClose}
-            className="p-2 rounded-xl hover:bg-zinc-100 text-zinc-500"
-          >
+          <button onClick={onClose} className="p-2 rounded-full bg-zinc-100 hover:bg-zinc-200 text-zinc-500 transition-colors">
             <X className="w-5 h-5" />
           </button>
         </div>
 
-        <form onSubmit={handleSubmit} className="space-y-5 mt-5">
-          <div className="space-y-2">
-            <label className="block text-xs font-black text-zinc-900">
-              1. 상품 콘텐츠 등록 방식 선택
-            </label>
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 p-1.5 bg-zinc-100 rounded-2xl">
-              <button
-                type="button"
-                onClick={() => setSourceType('homepage')}
-                className={`py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
-                  sourceType === 'homepage'
-                    ? 'bg-zinc-900 text-white shadow'
-                    : 'text-zinc-600 hover:text-zinc-900'
-                }`}
-              >
-                <Globe className="w-3.5 h-3.5" />
-                ① 홈페이지에서 가져오기
-              </button>
-              <button
-                type="button"
-                onClick={() => setSourceType('platform')}
-                className={`py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
-                  sourceType === 'platform'
-                    ? 'bg-blue-600 text-white shadow'
-                    : 'text-zinc-600 hover:text-zinc-900'
-                }`}
-              >
-                <ShoppingBag className="w-3.5 h-3.5" />
-                ② 온라인 플랫폼에서 가져오기
-              </button>
-              <button
-                type="button"
-                onClick={() => {
-                  setSourceType('manual');
-                  setSaleType('direct');
-                }}
-                className={`py-2.5 px-3 rounded-xl text-xs font-black flex items-center justify-center gap-1.5 transition-all ${
-                  sourceType === 'manual'
-                    ? 'bg-emerald-600 text-white shadow'
-                    : 'text-zinc-600 hover:text-zinc-900'
-                }`}
-              >
-                <Camera className="w-3.5 h-3.5" />
-                ③ 직접 사진·내용 올리기 (무홈페이지)
-              </button>
-            </div>
-          </div>
-
-          {sourceType !== 'manual' ? (
-            <div className="p-4 rounded-2xl bg-blue-50/60 border border-blue-200 space-y-2.5">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-black text-blue-950">
-                  {sourceType === 'homepage'
-                    ? '🌐 브랜드/자사 홈페이지 상품 URL 입력'
-                    : '🛒 스마트스토어 · 쿠팡 · 아마존 등 온라인 플랫폼 URL 입력'}
-                </span>
-                <span className="text-[11px] font-bold text-blue-700">
-                  OG 메타태그 자동 추출 지원
-                </span>
-              </div>
-              <div className="flex gap-2">
-                <input
-                  type="url"
-                  value={purchaseUrl}
-                  onChange={(e) => setPurchaseUrl(e.target.value)}
-                  placeholder={
-                    sourceType === 'homepage'
-                      ? 'https://mybrand.com/products/item-1'
-                      : 'https://smartstore.naver.com/... 또는 https://coupang.com/...'
-                  }
-                  className="flex-1 px-3.5 py-2.5 rounded-xl border border-blue-300 bg-white text-xs"
-                />
-                <button
-                  type="button"
-                  onClick={handleScrapeUrl}
-                  disabled={isScraping}
-                  className="px-4 py-2.5 rounded-xl bg-blue-600 hover:bg-blue-700 text-white text-xs font-extrabold shrink-0 inline-flex items-center gap-1.5 shadow-xs"
-                >
-                  {isScraping ? (
-                    <Loader2 className="w-3.5 h-3.5 animate-spin" />
-                  ) : (
-                    <Wand2 className="w-3.5 h-3.5" />
-                  )}
-                  내용 자동 가져오기
-                </button>
-              </div>
-            </div>
-          ) : (
-            <div className="p-4 rounded-2xl bg-emerald-50/70 border border-emerald-200 space-y-1">
-              <p className="text-xs font-black text-emerald-950 flex items-center gap-1.5">
-                <Camera className="w-4 h-4 text-emerald-600" />
-                홈페이지가 없어도 독립된 전용 상품 판매 페이지를 바로 생성합니다!
-              </p>
-              <p className="text-[11px] text-emerald-800">
-                스마트폰이나 PC에 있는 상품 사진 여러 장과 상세 소개글을 올리면, 국내(KRW) 및 해외(USD) 고객이 모두 구매할 수 있는 독립 판매 페이지(`?shop=번호`)가 만들어집니다.
-              </p>
-            </div>
-          )}
-
-          <div className="p-4 rounded-2xl border-2 border-zinc-900 bg-zinc-50/60 space-y-4">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black text-zinc-900 flex items-center gap-1.5">
-                <Camera className="w-4 h-4 text-emerald-600" />
-                2. 상품 사진 갤러리 & 상세페이지 직접 구성 폼
-              </h3>
-              <label className="cursor-pointer inline-flex items-center gap-1.5 px-3 py-1.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-extrabold shadow-xs">
-                <Upload className="w-3.5 h-3.5" />
-                내 기기에서 사진 여러 장 올리기
-                <input
-                  type="file"
-                  accept="image/*"
-                  multiple
-                  onChange={handleMainImageUpload}
-                  className="hidden"
-                />
-              </label>
-            </div>
-
-            <div className="space-y-2">
-              <div className="flex gap-2">
-                <input
-                  type="text"
-                  value={imageUrl}
-                  onChange={(e) => setImageUrl(e.target.value)}
-                  placeholder="대표 이미지 URL 직접 입력 또는 우측 상단 '사진 여러 장 올리기' 클릭"
-                  className="flex-1 px-3 py-2 rounded-xl border border-zinc-300 bg-white text-xs"
-                />
-                {imageUrl && (
-                  <button
-                    type="button"
-                    onClick={() => {
-                      if (!galleryImages.includes(imageUrl)) {
-                        setGalleryImages((prev) => [...prev, imageUrl]);
-                      }
-                    }}
-                    className="px-3 py-2 rounded-xl bg-zinc-900 text-white text-xs font-bold shrink-0"
-                  >
-                    갤러리에 추가
-                  </button>
-                )}
-              </div>
-
-              {galleryImages.length > 0 && (
-                <div className="flex items-center gap-2 overflow-x-auto py-1">
-                  {galleryImages.map((img, idx) => (
-                    <div
-                      key={idx}
-                      className={`relative w-16 h-16 rounded-xl overflow-hidden border-2 shrink-0 group ${
-                        imageUrl === img ? 'border-emerald-600' : 'border-zinc-200'
-                      }`}
-                    >
-                      <img
-                        src={img}
-                        alt={`갤러리 ${idx + 1}`}
-                        onClick={() => setImageUrl(img)}
-                        className="w-full h-full object-cover cursor-pointer"
-                        title="클릭하여 대표 이미지로 지정"
-                      />
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const next = galleryImages.filter((_, i) => i !== idx);
-                          setGalleryImages(next);
-                          if (imageUrl === img) setImageUrl(next[0] || '');
-                        }}
-                        className="absolute top-0.5 right-0.5 bg-black/70 text-white rounded-full p-0.5"
-                      >
-                        <X className="w-3 h-3" />
-                      </button>
-                    </div>
-                  ))}
+        <form onSubmit={handleSubmit} className="space-y-8">
+          {/* 미니멀하게 정리된 폼 섹션들 */}
+          {/* STEP 1: Source */}
+          <div className="space-y-4">
+             <label className="text-sm font-bold text-zinc-900">1. Data Source</label>
+             <div className="flex bg-zinc-50 p-1.5 rounded-2xl w-fit">
+               {['manual', 'homepage', 'platform'].map(type => (
+                 <button
+                   key={type} type="button" onClick={() => setSourceType(type)}
+                   className={`px-6 py-2.5 rounded-xl text-sm font-bold capitalize transition-colors ${sourceType === type ? 'bg-white text-zinc-900 shadow-sm' : 'text-zinc-500 hover:text-zinc-900'}`}
+                 >
+                   {type}
+                 </button>
+               ))}
+             </div>
+             {sourceType !== 'manual' && (
+                <div className="flex gap-2 max-w-xl">
+                  <input type="url" value={purchaseUrl} onChange={(e) => setPurchaseUrl(e.target.value)} placeholder="URL..." className="flex-1 px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                  <button type="button" onClick={handleScrapeUrl} className="px-6 rounded-xl bg-zinc-900 text-white text-sm font-bold">Fetch</button>
                 </div>
-              )}
-            </div>
+             )}
+          </div>
 
-            <div className="space-y-2.5 pt-2 border-t border-zinc-200">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-zinc-800">
-                  📝 상세페이지 본문 섹션 (사진 + 특장점 설명)
-                </span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setDetailBlocks((prev) => [
-                      ...prev,
-                      {
-                        id: `blk-${Date.now()}-${prev.length}`,
-                        title: '',
-                        title_en: '',
-                        content: '',
-                        content_en: '',
-                        image: '',
-                      },
-                    ])
-                  }
-                  className="inline-flex items-center gap-1 text-xs font-extrabold text-emerald-700 hover:underline"
-                >
-                  <Plus className="w-3.5 h-3.5" /> 상세 섹션 추가
-                </button>
-              </div>
-
-              {detailBlocks.map((blk, idx) => (
-                <div
-                  key={blk.id || idx}
-                  className="p-3 rounded-2xl bg-white border border-zinc-200 space-y-2"
-                >
-                  <div className="flex items-center justify-between">
-                    <span className="text-[11px] font-black text-zinc-500">
-                      상세 섹션 #{idx + 1}
-                    </span>
-                    {detailBlocks.length > 1 && (
-                      <button
-                        type="button"
-                        onClick={() =>
-                          setDetailBlocks((prev) => prev.filter((_, i) => i !== idx))
-                        }
-                        className="text-red-500 hover:text-red-700 text-[11px] font-bold inline-flex items-center gap-0.5"
-                      >
-                        <Trash2 className="w-3 h-3" /> 삭제
-                      </button>
-                    )}
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <input
-                      type="text"
-                      value={blk.title}
-                      onChange={(e) =>
-                        setDetailBlocks((prev) =>
-                          prev.map((item, i) =>
-                            i === idx ? { ...item, title: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="섹션 소제목 (한국어, 예: 1분 폴딩 초경량 설계)"
-                      className="px-3 py-1.5 rounded-xl border border-zinc-300 text-xs font-bold"
-                    />
-                    <input
-                      type="text"
-                      value={blk.title_en}
-                      onChange={(e) =>
-                        setDetailBlocks((prev) =>
-                          prev.map((item, i) =>
-                            i === idx ? { ...item, title_en: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="Section Title (English, 선택사항)"
-                      className="px-3 py-1.5 rounded-xl border border-zinc-300 text-xs"
-                    />
-                  </div>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 gap-2">
-                    <textarea
-                      rows={2}
-                      value={blk.content}
-                      onChange={(e) =>
-                        setDetailBlocks((prev) =>
-                          prev.map((item, i) =>
-                            i === idx ? { ...item, content: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="상세 설명 내용 (한국어)"
-                      className="px-3 py-1.5 rounded-xl border border-zinc-300 text-xs"
-                    />
-                    <textarea
-                      rows={2}
-                      value={blk.content_en}
-                      onChange={(e) =>
-                        setDetailBlocks((prev) =>
-                          prev.map((item, i) =>
-                            i === idx ? { ...item, content_en: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="Detailed Description (English, 선택사항)"
-                      className="px-3 py-1.5 rounded-xl border border-zinc-300 text-xs"
-                    />
-                  </div>
-                  <div className="flex items-center gap-2">
-                    {blk.image && (
-                      <img
-                        src={blk.image}
-                        alt=""
-                        className="w-9 h-9 rounded-lg object-cover border"
-                      />
-                    )}
-                    <input
-                      type="text"
-                      value={blk.image}
-                      onChange={(e) =>
-                        setDetailBlocks((prev) =>
-                          prev.map((item, i) =>
-                            i === idx ? { ...item, image: e.target.value } : item
-                          )
-                        )
-                      }
-                      placeholder="섹션 이미지 URL 또는 우측 사진 업로드"
-                      className="flex-1 px-3 py-1.5 rounded-xl border border-zinc-300 text-xs"
-                    />
-                    <label className="cursor-pointer px-2.5 py-1.5 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-[11px] font-bold shrink-0 inline-flex items-center gap-1">
-                      <Upload className="w-3 h-3" /> 사진 첨부
-                      <input
-                        type="file"
-                        accept="image/*"
-                        onChange={(e) => handleBlockImageUpload(idx, e)}
-                        className="hidden"
-                      />
-                    </label>
-                  </div>
+          {/* STEP 2: Media */}
+          <div className="space-y-4">
+             <div className="flex items-center justify-between">
+                <label className="text-sm font-bold text-zinc-900">2. Media & Gallery</label>
+                <label className="cursor-pointer px-4 py-2 bg-zinc-100 hover:bg-zinc-200 rounded-full text-xs font-bold text-zinc-900 transition-colors">
+                  + Upload Images
+                  <input type="file" accept="image/*" multiple onChange={handleMainImageUpload} className="hidden" />
+                </label>
+             </div>
+             <input type="text" value={imageUrl} onChange={e=>setImageUrl(e.target.value)} placeholder="Primary Image URL" className="w-full px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+             {galleryImages.length > 0 && (
+                <div className="flex gap-3 overflow-x-auto pb-2">
+                   {galleryImages.map((img, i) => (
+                      <div key={i} className="relative w-20 h-20 shrink-0">
+                         <img src={img} className="w-full h-full rounded-2xl object-cover border border-zinc-200" alt=""/>
+                         <button type="button" onClick={() => setGalleryImages(prev=>prev.filter((_, idx)=>idx!==i))} className="absolute -top-2 -right-2 bg-zinc-900 text-white rounded-full p-1"><X className="w-3 h-3"/></button>
+                      </div>
+                   ))}
                 </div>
-              ))}
-            </div>
-
-            <div className="space-y-2 pt-2 border-t border-zinc-200">
-              <div className="flex items-center justify-between">
-                <span className="text-xs font-extrabold text-zinc-800">
-                  📏 제품 규격 / 스펙 표 (선택)
-                </span>
-                <button
-                  type="button"
-                  onClick={() =>
-                    setSpecs((prev) => [...prev, { label: '', value: '' }])
-                  }
-                  className="inline-flex items-center gap-1 text-xs font-extrabold text-zinc-700 hover:underline"
-                >
-                  <Plus className="w-3.5 h-3.5" /> 스펙 항목 추가
-                </button>
-              </div>
-              {specs.map((sp, idx) => (
-                <div key={idx} className="flex gap-2">
-                  <input
-                    type="text"
-                    value={sp.label}
-                    onChange={(e) =>
-                      setSpecs((prev) =>
-                        prev.map((item, i) =>
-                          i === idx ? { ...item, label: e.target.value } : item
-                        )
-                      )
-                    }
-                    placeholder="항목명 (예: 소재 / 무게)"
-                    className="w-2/5 px-3 py-1.5 rounded-xl border border-zinc-300 bg-white text-xs font-bold"
-                  />
-                  <input
-                    type="text"
-                    value={sp.value}
-                    onChange={(e) =>
-                      setSpecs((prev) =>
-                        prev.map((item, i) =>
-                          i === idx ? { ...item, value: e.target.value } : item
-                        )
-                      )
-                    }
-                    placeholder="내용 (예: Grade 1 Titanium / 1.85kg)"
-                    className="flex-1 px-3 py-1.5 rounded-xl border border-zinc-300 bg-white text-xs"
-                  />
-                  {specs.length > 1 && (
-                    <button
-                      type="button"
-                      onClick={() =>
-                        setSpecs((prev) => prev.filter((_, i) => i !== idx))
-                      }
-                      className="px-2 text-zinc-400 hover:text-red-500"
-                    >
-                      <X className="w-4 h-4" />
-                    </button>
-                  )}
-                </div>
-              ))}
-            </div>
+             )}
           </div>
 
-          <div className="space-y-3 p-4 rounded-2xl bg-white border border-zinc-200">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black text-zinc-900 flex items-center gap-1.5">
-                <Languages className="w-4 h-4 text-indigo-600" />
-                3. 한국어 & 해외 구매자용 영문(English) 상품 정보
-              </h3>
-              <button
-                type="button"
-                onClick={handleAiAutoFillAndTranslate}
-                disabled={isAiGenerating}
-                className="inline-flex items-center gap-1 px-3 py-1.5 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white text-[11px] font-extrabold shadow-xs"
-              >
-                <Sparkles className="w-3.5 h-3.5" />
-                AI 한·영 자동 번역 & 마케팅 문구 완성
-              </button>
-            </div>
-
-            <div className="grid grid-cols-2 sm:grid-cols-4 gap-2.5">
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  영상/상품 번호 *
-                </label>
-                <input
-                  type="number"
-                  required
-                  value={videoNumber}
-                  onChange={(e) => setVideoNumber(e.target.value)}
-                  placeholder="106"
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-black"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  주요 유입 채널
-                </label>
-                <select
-                  value={platform}
-                  onChange={(e) => setPlatform(e.target.value)}
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-bold bg-white"
-                >
-                  <option value="instagram">Instagram (Reels)</option>
-                  <option value="youtube">YouTube (Shorts)</option>
-                  <option value="tiktok">TikTok</option>
-                </select>
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  국내 판매가 (KRW 원)
-                </label>
-                <input
-                  type="number"
-                  value={price}
-                  onChange={(e) => handlePriceChange(e.target.value)}
-                  placeholder="129000"
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-bold"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-indigo-700 mb-1">
-                  해외 판매가 (USD $)
-                </label>
-                <input
-                  type="number"
-                  step="0.01"
-                  value={priceUsd}
-                  onChange={(e) => setPriceUsd(e.target.value)}
-                  placeholder="95"
-                  className="w-full px-3 py-2 rounded-xl border border-indigo-300 bg-indigo-50/40 text-xs font-bold"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  한국어 상품명 *
-                </label>
-                <input
-                  type="text"
-                  required
-                  value={productName}
-                  onChange={(e) => setProductName(e.target.value)}
-                  placeholder="예: 카시오페아 (L) 티타늄 화목난로"
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs font-bold"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-indigo-700 mb-1">
-                  영문 상품명 (English Product Name)
-                </label>
-                <input
-                  type="text"
-                  value={productNameEn}
-                  onChange={(e) => setProductNameEn(e.target.value)}
-                  placeholder="e.g. Cassiopeia (L) Titanium Wood Stove"
-                  className="w-full px-3 py-2 rounded-xl border border-indigo-300 bg-indigo-50/30 text-xs font-bold"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  한국어 한 줄 설명
-                </label>
-                <input
-                  type="text"
-                  value={description}
-                  onChange={(e) => setDescription(e.target.value)}
-                  placeholder="상품 핵심 요약 문구 (한국어)"
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-indigo-700 mb-1">
-                  영문 한 줄 설명 (English Subtitle)
-                </label>
-                <input
-                  type="text"
-                  value={descriptionEn}
-                  onChange={(e) => setDescriptionEn(e.target.value)}
-                  placeholder="Short product description in English"
-                  className="w-full px-3 py-2 rounded-xl border border-indigo-300 bg-indigo-50/30 text-xs"
-                />
-              </div>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5">
-              <div>
-                <label className="block text-[11px] font-bold text-zinc-600 mb-1">
-                  한국어 옵션 목록 (쉼표 구분)
-                </label>
-                <input
-                  type="text"
-                  value={optionsInput}
-                  onChange={(e) => setOptionsInput(e.target.value)}
-                  placeholder="예: 기본 단품, 풀세트 (+25,000원)"
-                  className="w-full px-3 py-2 rounded-xl border border-zinc-300 text-xs"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-indigo-700 mb-1">
-                  영문 옵션 목록 (English Options, 쉼표 구분)
-                </label>
-                <input
-                  type="text"
-                  value={optionsEnInput}
-                  onChange={(e) => setOptionsEnInput(e.target.value)}
-                  placeholder="e.g. Standard Set, Full Package (+$19)"
-                  className="w-full px-3 py-2 rounded-xl border border-indigo-300 bg-indigo-50/30 text-xs"
-                />
-              </div>
-            </div>
+          {/* STEP 3: Basic Info (Sleek Grid) */}
+          <div className="space-y-4">
+             <div className="flex justify-between items-center">
+                <label className="text-sm font-bold text-zinc-900">3. Product Details</label>
+                <button type="button" onClick={handleAiAutoFillAndTranslate} className="text-xs font-bold text-indigo-600 bg-indigo-50 px-3 py-1.5 rounded-full flex items-center gap-1"><Sparkles className="w-3 h-3"/> AI Magic</button>
+             </div>
+             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <input type="text" required value={productName} onChange={e=>setProductName(e.target.value)} placeholder="Name (KR)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                <input type="text" value={productNameEn} onChange={e=>setProductNameEn(e.target.value)} placeholder="Name (EN)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                <input type="number" required value={price} onChange={e=>handlePriceChange(e.target.value)} placeholder="Price (KRW)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                <input type="number" value={priceUsd} onChange={e=>setPriceUsd(e.target.value)} placeholder="Price (USD)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                <input type="text" value={optionsInput} onChange={e=>setOptionsInput(e.target.value)} placeholder="Options (KR, comma separated)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+                <input type="text" value={optionsEnInput} onChange={e=>setOptionsEnInput(e.target.value)} placeholder="Options (EN, comma separated)" className="px-4 py-3 bg-zinc-50 rounded-xl text-sm outline-none focus:ring-2 focus:ring-zinc-900"/>
+             </div>
           </div>
-
-          <div className="p-4 rounded-2xl bg-amber-50/70 border border-amber-300 space-y-3">
-            <div className="flex items-center justify-between">
-              <h3 className="text-xs font-black text-amber-950 flex items-center gap-1.5">
-                <CreditCard className="w-4 h-4 text-amber-700" />
-                4. 제3자 온라인 결제 폼 연동 (Stripe · PayPal · 포트원 · 토스 · 페이앱 등)
-              </h3>
-              <span className="text-[11px] font-bold text-amber-800">
-                국내·해외 결제 링크 분리 가능
-              </span>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2.5">
-              <div>
-                <label className="block text-[11px] font-bold text-amber-900 mb-1">
-                  결제 대행사 표시명
-                </label>
-                <input
-                  type="text"
-                  value={paymentProvider}
-                  onChange={(e) => setPaymentProvider(e.target.value)}
-                  placeholder="예: Stripe / PayPal / Toss"
-                  className="w-full px-3 py-2 rounded-xl border border-amber-300 bg-white text-xs font-bold"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-amber-900 mb-1">
-                  국내(KR) 제3자 온라인 결제 폼 URL
-                </label>
-                <input
-                  type="url"
-                  value={thirdPartyPaymentUrl}
-                  onChange={(e) => setThirdPartyPaymentUrl(e.target.value)}
-                  placeholder="https://buy.stripe.com/... 또는 결제폼 링크"
-                  className="w-full px-3 py-2 rounded-xl border border-amber-300 bg-white text-xs"
-                />
-              </div>
-              <div>
-                <label className="block text-[11px] font-bold text-amber-900 mb-1">
-                  해외(EN) 글로벌 결제 폼 URL (PayPal/Stripe 등)
-                </label>
-                <input
-                  type="url"
-                  value={thirdPartyPaymentUrlEn}
-                  onChange={(e) => setThirdPartyPaymentUrlEn(e.target.value)}
-                  placeholder="https://paypal.me/... (비워두면 국내 링크 공통 사용)"
-                  className="w-full px-3 py-2 rounded-xl border border-amber-300 bg-white text-xs"
-                />
-              </div>
-            </div>
-          </div>
-
-          <div className="flex justify-end gap-2 pt-2">
-            <button
-              type="button"
-              onClick={onClose}
-              className="px-4 py-2.5 rounded-xl bg-zinc-100 text-zinc-700 text-xs font-bold"
-            >
-              취소
-            </button>
-            <button
-              type="submit"
-              className="px-6 py-2.5 rounded-xl bg-zinc-900 hover:bg-zinc-800 text-white text-xs font-extrabold shadow-md"
-            >
-              {editingItem ? '수정 내용 저장하기' : '독립 판매페이지 생성 완료'}
+          
+          {/* Action Buttons */}
+          <div className="flex justify-end gap-3 pt-8 border-t border-zinc-100">
+            <button type="button" onClick={onClose} className="px-6 py-3 rounded-full bg-zinc-100 text-zinc-900 text-sm font-bold hover:bg-zinc-200">Cancel</button>
+            <button type="submit" className="px-8 py-3 rounded-full bg-zinc-900 text-white text-sm font-bold shadow-lg hover:bg-zinc-800 transition-colors">
+               {editingItem ? 'Save Changes' : 'Create Product'}
             </button>
           </div>
         </form>
@@ -3571,112 +2459,62 @@ export default function App() {
   );
 
   return (
-    <div className="min-h-screen bg-zinc-50 text-zinc-900 font-sans pb-20">
+    <div className="min-h-screen bg-white text-zinc-900 font-sans">
       {toastMessage && (
-        <div className="fixed bottom-6 left-1/2 -translate-x-1/2 z-50 bg-zinc-900 text-white text-xs font-bold px-4 py-3 rounded-2xl shadow-xl border border-zinc-700">
+        <div className="fixed bottom-10 left-1/2 -translate-x-1/2 z-50 bg-zinc-900 text-white text-sm font-bold px-6 py-3 rounded-full shadow-2xl tracking-wide">
           {toastMessage}
         </div>
       )}
 
-      {/* 상단 공통 헤더 */}
-      <header className="bg-white/95 backdrop-blur-md border-b border-zinc-200 sticky top-0 z-40">
-        <div className="max-w-5xl mx-auto px-4 h-16 flex items-center justify-between gap-2">
+      {/* 미니멀 GNB 헤더 (Blur & Transparent) */}
+      <header className="sticky top-0 z-40 bg-white/80 backdrop-blur-xl border-b border-zinc-100/50 transition-all">
+        <div className="max-w-6xl mx-auto px-4 sm:px-8 h-16 flex items-center justify-between">
+          <button onClick={handleBackToStore} className="flex items-center gap-2 group">
+            <span className="font-black text-xl tracking-tighter group-hover:opacity-70 transition-opacity">SHORTPICK.</span>
+          </button>
+
           <div className="flex items-center gap-2">
-            <button onClick={handleBackToStore} className="flex items-center gap-2">
-              <span className="w-8 h-8 rounded-xl bg-zinc-900 text-amber-400 flex items-center justify-center font-black text-sm">
-                #
-              </span>
-              <span className="font-black text-base tracking-tight">SHORTPICK</span>
-            </button>
-
-            {products.length > 0 && (
-              <button
-                onClick={() => {
-                  const target = selectedShopProduct || products[0];
-                  handleOpenDirectShop(target);
-                }}
-                className={`hidden sm:inline-flex items-center gap-1 px-2.5 py-1.5 rounded-xl text-xs font-extrabold transition-all ${
-                  activeTab === 'shop'
-                    ? 'bg-emerald-600 text-white'
-                    : 'bg-emerald-50 text-emerald-800 hover:bg-emerald-100'
-                }`}
-              >
-                <ShoppingBag className="w-3.5 h-3.5" />
-                <span>
-                  {lang === 'en' ? 'Standalone Product Page' : '독립 판매페이지 보기'}
-                </span>
-              </button>
-            )}
-          </div>
-
-          {/* 우측 언어 전환(KR/EN) & 관리자 전용 상품 등록 버튼 */}
-          <div className="flex items-center gap-1.5">
             <button
               onClick={handleToggleLang}
-              className="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl border border-zinc-300 bg-white hover:bg-zinc-100 text-zinc-800 text-xs font-extrabold"
-              title="한국어 / English 전환"
+              className="px-4 py-2 rounded-full hover:bg-zinc-50 text-zinc-900 text-xs font-black uppercase tracking-wider transition-colors"
             >
-              <Globe className="w-3.5 h-3.5 text-indigo-600" />
-              <span>{lang === 'en' ? 'EN ($)' : 'KR (₩)'}</span>
+              {lang === 'en' ? 'EN' : 'KR'}
             </button>
 
             {!isAdmin ? (
               <button
-                onClick={() => {
-                  setPinInput('');
-                  setPinError('');
-                  setShowPinModal(true);
-                }}
-                className="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl bg-zinc-100 hover:bg-zinc-200 text-zinc-700 text-xs font-bold"
+                onClick={() => { setPinInput(''); setPinError(''); setShowPinModal(true); }}
+                className="p-2 text-zinc-400 hover:text-zinc-900 transition-colors"
               >
-                <Lock className="w-3.5 h-3.5" />
-                <span className="hidden sm:inline">
-                  {lang === 'en' ? 'Admin' : '관리자'}
-                </span>
+                <Lock className="w-4 h-4" />
               </button>
             ) : (
-              <>
+              <div className="flex items-center gap-2 bg-zinc-50 p-1 rounded-full border border-zinc-200/60">
                 <button
-                  onClick={() => {
-                    setEditingItem(null);
-                    setShowProductModal(true);
-                  }}
-                  className="inline-flex items-center gap-1 px-3 py-2 rounded-xl bg-amber-400 hover:bg-amber-300 text-zinc-950 text-xs font-extrabold shadow-2xs"
+                  onClick={() => setActiveTab('store')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-colors ${activeTab === 'store' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500'}`}
                 >
-                  <Plus className="w-3.5 h-3.5 stroke-[2.5]" />
-                  <span>{lang === 'en' ? 'Add Product' : '상품/직접등록'}</span>
+                  Store
                 </button>
                 <button
-                  onClick={() =>
-                    setActiveTab(activeTab === 'admin' ? 'store' : 'admin')
-                  }
-                  className={`inline-flex items-center gap-1 px-3 py-2 rounded-xl text-xs font-bold ${
-                    activeTab === 'admin'
-                      ? 'bg-blue-600 text-white'
-                      : 'bg-blue-50 text-blue-700 border border-blue-200'
-                  }`}
+                  onClick={() => setActiveTab('admin')}
+                  className={`px-4 py-1.5 rounded-full text-xs font-bold transition-colors ${activeTab === 'admin' ? 'bg-white shadow-sm text-zinc-900' : 'text-zinc-500'}`}
                 >
-                  <BarChart3 className="w-3.5 h-3.5" />
-                  <span>{activeTab === 'admin' ? '스토어' : '관리자 홈'}</span>
+                  Admin
                 </button>
                 <button
-                  onClick={() => {
-                    setIsAdmin(false);
-                    setShowProductModal(false);
-                    if (activeTab === 'admin') setActiveTab('store');
-                    showToast('🔒 관리자 모드가 잠겼습니다.');
-                  }}
-                  className="inline-flex items-center gap-1 px-2.5 py-2 rounded-xl bg-zinc-900 text-white text-xs font-bold"
+                  onClick={() => { setIsAdmin(false); setActiveTab('store'); showToast('🔒 Logged out'); }}
+                  className="p-1.5 rounded-full hover:bg-zinc-200 text-zinc-500 transition-colors ml-1"
                 >
-                  <Unlock className="w-3.5 h-3.5 text-amber-400" />
+                  <Unlock className="w-3.5 h-3.5" />
                 </button>
-              </>
+              </div>
             )}
           </div>
         </div>
       </header>
 
-      {/* 현재 화면 렌더링 */}
+      {/* 뷰 라우팅 */}
       {activeTab === 'store' && (
         <StoreView
           products={products}
@@ -3684,20 +2522,9 @@ export default function App() {
           isAdmin={isAdmin}
           onProductClick={handleProductClick}
           onOpenDirectShop={handleOpenDirectShop}
-          onOpenManualCreate={() => {
-            if (!isAdmin) return;
-            setEditingItem(null);
-            setShowProductModal(true);
-          }}
-          onEditProduct={(item) => {
-            if (!isAdmin) return;
-            setEditingItem(item);
-            setShowProductModal(true);
-          }}
-          onDeleteProduct={(item) => {
-            if (!isAdmin) return;
-            setDeletingItem(item);
-          }}
+          onOpenManualCreate={() => { setEditingItem(null); setShowProductModal(true); }}
+          onEditProduct={(item) => { setEditingItem(item); setShowProductModal(true); }}
+          onDeleteProduct={(item) => setDeletingItem(item)}
           onCopyShopLink={handleCopyShopLink}
         />
       )}
@@ -3730,133 +2557,81 @@ export default function App() {
           adminPin={adminPin}
           bankAccountInfo={bankAccountInfo}
           thirdPartyDefaultUrl={thirdPartyDefaultUrl}
-          onSaveBankAccount={(val) => {
-            setBankAccountInfo(val);
-            safeSetStorage('sf_bank_info', val);
-            showToast('✅ 입금 계좌 안내 문구가 저장되었습니다.');
-          }}
-          onSaveThirdPartyDefaultUrl={(val) => {
-            setThirdPartyDefaultUrl(val);
-            safeSetStorage('sf_third_party_url', val);
-            showToast('✅ 기본 제3자 온라인 결제 폼 URL이 저장되었습니다.');
-          }}
+          onSaveBankAccount={(val) => { setBankAccountInfo(val); safeSetStorage('sf_bank_info', val); showToast('✅ Saved.'); }}
+          onSaveThirdPartyDefaultUrl={(val) => { setThirdPartyDefaultUrl(val); safeSetStorage('sf_third_party_url', val); showToast('✅ Saved.'); }}
           onConnectSupabase={async (e) => {
             e.preventDefault();
             const ok = await syncSupabase(sbUrl, sbKey);
-            if (ok) {
-              safeSetStorage('sf_supabase_url', sbUrl);
-              safeSetStorage('sf_supabase_key', sbKey);
-              showToast('✅ Supabase DB와 연결되었습니다!');
-            } else {
-              showToast('❌ 연결 실패: URL과 키를 확인해 주세요.');
-            }
+            if (ok) { safeSetStorage('sf_supabase_url', sbUrl); safeSetStorage('sf_supabase_key', sbKey); showToast('✅ Connected!'); }
+            else showToast('❌ Connection failed.');
           }}
           onSyncSupabase={() => syncSupabase()}
           onChangePin={(newPin) => {
             if (newPin.trim().length < 4) return;
-            setAdminPin(newPin.trim());
-            safeSetStorage('sf_admin_pin', newPin.trim());
-            showToast('✅ 관리자 PIN 비밀번호가 변경되었습니다.');
+            setAdminPin(newPin.trim()); safeSetStorage('sf_admin_pin', newPin.trim()); showToast('✅ PIN updated.');
           }}
-          onOpenNewProduct={() => {
-            setEditingItem(null);
-            setShowProductModal(true);
-          }}
+          onOpenNewProduct={() => { setEditingItem(null); setShowProductModal(true); }}
           onOpenDirectShop={handleOpenDirectShop}
-          onEditProduct={(item) => {
-            setEditingItem(item);
-            setShowProductModal(true);
-          }}
+          onEditProduct={(item) => { setEditingItem(item); setShowProductModal(true); }}
           onDeleteProduct={(item) => setDeletingItem(item)}
           onUpdateOrderStatus={handleUpdateOrderStatus}
-          onLockAdmin={() => {
-            setIsAdmin(false);
-            setShowProductModal(false);
-            setActiveTab('store');
-            showToast('🔒 관리자 모드가 잠겼습니다.');
-          }}
+          onLockAdmin={() => { setIsAdmin(false); setActiveTab('store'); showToast('🔒 Logged out'); }}
         />
       )}
 
-      {/* 관리자 PIN 인증 모달 */}
+      {/* 미니멀 핀 모달 */}
       {showPinModal && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-zinc-200">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-base font-black">관리자 인증</h3>
-              <button
-                onClick={() => setShowPinModal(false)}
-                className="p-1.5 rounded-xl hover:bg-zinc-100"
-              >
-                <X className="w-4 h-4" />
-              </button>
-            </div>
+        <div className="fixed inset-0 z-50 bg-zinc-900/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2rem] max-w-xs w-full p-8 shadow-2xl relative text-center">
+            <button onClick={() => setShowPinModal(false)} className="absolute top-4 right-4 p-2 text-zinc-400 hover:text-zinc-900">
+              <X className="w-4 h-4" />
+            </button>
+            <Lock className="w-8 h-8 mx-auto text-zinc-900 mb-4" />
+            <h3 className="text-lg font-black tracking-tight mb-6">Admin Access</h3>
             <form
               onSubmit={(e) => {
                 e.preventDefault();
-                if (pinInput.trim() === adminPin) {
-                  setIsAdmin(true);
-                  setShowPinModal(false);
-                  setActiveTab('admin');
-                  showToast('🔓 관리자 모드가 잠금 해제되었습니다.');
-                } else {
-                  setPinError('비밀번호가 일치하지 않습니다. (초기값: 1234)');
-                }
+                if (pinInput.trim() === adminPin) { setIsAdmin(true); setShowPinModal(false); setActiveTab('admin'); showToast('🔓 Unlocked'); }
+                else { setPinError('Invalid PIN'); }
               }}
-              className="space-y-3"
+              className="space-y-4"
             >
               <input
                 type="password"
                 autoFocus
                 value={pinInput}
                 onChange={(e) => setPinInput(e.target.value)}
-                placeholder="PIN 번호 입력 (초기값: 1234)"
-                className="w-full px-4 py-3 rounded-2xl border-2 border-zinc-900 text-center text-base font-black tracking-widest"
+                placeholder="PIN"
+                className="w-full px-4 py-4 rounded-xl bg-zinc-50 border-none text-center text-xl font-black tracking-widest focus:ring-2 focus:ring-zinc-900 outline-none"
               />
-              {pinError && (
-                <p className="text-xs font-bold text-red-600 flex items-center gap-1">
-                  <AlertCircle className="w-3.5 h-3.5" /> {pinError}
-                </p>
-              )}
-              <button
-                type="submit"
-                className="w-full py-3 rounded-2xl bg-zinc-900 text-white text-xs font-extrabold"
-              >
-                잠금 해제 및 진입
-              </button>
+              {pinError && <p className="text-xs font-bold text-red-500">{pinError}</p>}
+              <button type="submit" className="w-full py-4 rounded-full bg-zinc-900 text-white text-sm font-bold shadow-lg">Enter</button>
             </form>
           </div>
         </div>
       )}
 
-      {/* 상품 삭제 확인 모달 */}
-      {isAdmin && deletingItem && (
-        <div className="fixed inset-0 z-50 bg-black/60 backdrop-blur-xs flex items-center justify-center p-4">
-          <div className="bg-white rounded-3xl max-w-sm w-full p-6 shadow-2xl border border-zinc-200 space-y-4">
-            <h3 className="text-base font-black text-zinc-900">상품 삭제 확인</h3>
-            <p className="text-xs text-zinc-600">
-              '[#{deletingItem.shortform_posts?.video_number || '-'}번] {deletingItem.name}' 상품을 삭제하시겠습니까?
-            </p>
-            <div className="flex justify-end gap-2">
-              <button
-                onClick={() => setDeletingItem(null)}
-                className="px-4 py-2 rounded-xl bg-zinc-100 text-zinc-700 text-xs font-bold"
-              >
-                취소
-              </button>
-              <button
-                onClick={confirmDeleteProduct}
-                className="px-4 py-2 rounded-xl bg-red-600 text-white text-xs font-extrabold"
-              >
-                삭제하기
-              </button>
+      {/* 삭제 모달 */}
+      {deletingItem && (
+        <div className="fixed inset-0 z-50 bg-zinc-900/60 backdrop-blur-md flex items-center justify-center p-4">
+          <div className="bg-white rounded-[2rem] max-w-sm w-full p-8 shadow-2xl text-center space-y-6">
+            <div className="w-16 h-16 rounded-full bg-red-50 text-red-500 flex items-center justify-center mx-auto">
+               <Trash2 className="w-6 h-6"/>
+            </div>
+            <div>
+               <h3 className="text-lg font-black text-zinc-900">Delete Product?</h3>
+               <p className="text-sm text-zinc-500 mt-2">This action cannot be undone.</p>
+            </div>
+            <div className="flex gap-3">
+              <button onClick={() => setDeletingItem(null)} className="flex-1 py-3 rounded-full bg-zinc-100 text-zinc-900 text-sm font-bold">Cancel</button>
+              <button onClick={confirmDeleteProduct} className="flex-1 py-3 rounded-full bg-red-500 hover:bg-red-600 text-white text-sm font-bold transition-colors">Delete</button>
             </div>
           </div>
         </div>
       )}
 
-      {/* 상품 등록/수정 모달 (관리자 전용: 3가지 방식 + 제3자 결제 + 한/영 지원) */}
-      {isAdmin && showProductModal && (
+      {/* 상품 폼 모달 */}
+      {showProductModal && (
         <ProductFormModal
           editingItem={editingItem}
           defaultVideoNumber={nextVideoNumber}
